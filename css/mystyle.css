@@ -138,21 +138,27 @@ html.lms-dark.lms-theme-pink {
 
 /* --- Monochrome --- */
 html.lms-theme-mono {
-    --lms-primary: #475569;
-    --lms-primary-d: #334155;
-    --lms-accent: #64748b;
-    --lms-primary-rgb: 71, 85, 105;
-    --lms-sidebar-active: #475569;
+    --lms-primary: #111111;
+    --lms-primary-d: #000000;
+    --lms-accent: #333333;
+    --lms-primary-rgb: 17, 17, 17;
+    --lms-sidebar-active: #111111;
+    --lms-header-bg: #111111;
+    --lms-sidebar-bg: #111111;
+    --lms-sidebar-hover: #222222;
 }
 html.lms-dark.lms-theme-mono {
-    --lms-primary: #94a3b8;
-    --lms-primary-d: #cbd5e1;
-    --lms-accent: #94a3b8;
-    --lms-primary-rgb: 148, 163, 184;
-    --lms-sidebar-active: #94a3b8;
-    --lms-bg: #0d1117;
-    --lms-surface: #1a1f28;
-    --lms-border: #2d3340;
+    --lms-primary: #f0f0f0;
+    --lms-primary-d: #ffffff;
+    --lms-accent: #cccccc;
+    --lms-primary-rgb: 240, 240, 240;
+    --lms-sidebar-active: #f0f0f0;
+    --lms-header-bg: #111111;
+    --lms-sidebar-bg: #111111;
+    --lms-sidebar-hover: #222222;
+    --lms-bg: #0a0a0a;
+    --lms-surface: #141414;
+    --lms-border: #2a2a2a;
 }
 
 /* --- Purple --- */
