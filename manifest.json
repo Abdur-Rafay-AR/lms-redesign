@@ -10,16 +10,15 @@
   "permissions": ["storage"],
   "content_scripts": [
     {
-      "matches": [
-        "*://lms.bahria.edu.pk/*",
-        "*://cms.bahria.edu.pk/*"
-      ],
-      "css": [
-        "css/mystyle.css"
-      ],
-      "js": [
-        "js/content.js"
-      ],
+      "matches": ["*://lms.bahria.edu.pk/*"],
+      "css": ["css/mystyle.css"],
+      "js": ["js/content.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["*://cms.bahria.edu.pk/*"],
+      "css": ["css/cms-style.css"],
+      "js": ["js/cms-content.js"],
       "run_at": "document_start"
     }
   ]
