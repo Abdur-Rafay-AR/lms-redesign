@@ -78,9 +78,12 @@ html.lms-dark.lms-theme-crimson {
     --lms-accent: #fb7185;
     --lms-primary-rgb: 239, 68, 68;
     --lms-sidebar-active: #ef4444;
-    --lms-header-bg: #3b0505;
-    --lms-sidebar-bg: #3b0505;
-    --lms-sidebar-hover: #7f1d1d;
+    --lms-header-bg: #7f1d1d;
+    --lms-sidebar-bg: #7f1d1d;
+    --lms-sidebar-hover: #991b1b;
+    --lms-bg: #1a0808;
+    --lms-surface: #2d1010;
+    --lms-border: #4d1f1f;
 }
 
 /* --- Forest --- */
@@ -100,9 +103,12 @@ html.lms-dark.lms-theme-forest {
     --lms-accent: #34d399;
     --lms-primary-rgb: 34, 197, 94;
     --lms-sidebar-active: #22c55e;
-    --lms-header-bg: #052e16;
-    --lms-sidebar-bg: #052e16;
-    --lms-sidebar-hover: #14532d;
+    --lms-header-bg: #14532d;
+    --lms-sidebar-bg: #14532d;
+    --lms-sidebar-hover: #15803d;
+    --lms-bg: #071a0e;
+    --lms-surface: #112b18;
+    --lms-border: #1e4a2c;
 }
 
 /* --- Baby Pink --- */
@@ -122,9 +128,12 @@ html.lms-dark.lms-theme-pink {
     --lms-accent: #fb7bac;
     --lms-primary-rgb: 244, 114, 182;
     --lms-sidebar-active: #f472b6;
-    --lms-header-bg: #4a0020;
-    --lms-sidebar-bg: #4a0020;
-    --lms-sidebar-hover: #831843;
+    --lms-header-bg: #831843;
+    --lms-sidebar-bg: #831843;
+    --lms-sidebar-hover: #9d174d;
+    --lms-bg: #1a0812;
+    --lms-surface: #2d1020;
+    --lms-border: #4d1f38;
 }
 
 /* --- Monochrome --- */
@@ -141,6 +150,9 @@ html.lms-dark.lms-theme-mono {
     --lms-accent: #94a3b8;
     --lms-primary-rgb: 148, 163, 184;
     --lms-sidebar-active: #94a3b8;
+    --lms-bg: #0d1117;
+    --lms-surface: #1a1f28;
+    --lms-border: #2d3340;
 }
 
 /* --- Purple --- */
@@ -160,9 +172,12 @@ html.lms-dark.lms-theme-purple {
     --lms-accent: #a78bfa;
     --lms-primary-rgb: 139, 92, 246;
     --lms-sidebar-active: #8b5cf6;
-    --lms-header-bg: #1e0533;
-    --lms-sidebar-bg: #1e0533;
-    --lms-sidebar-hover: #3b0764;
+    --lms-header-bg: #3b0764;
+    --lms-sidebar-bg: #3b0764;
+    --lms-sidebar-hover: #4c1d95;
+    --lms-bg: #0e0820;
+    --lms-surface: #1a1235;
+    --lms-border: #2e1f5e;
 }
 
 /* --- Teal --- */
@@ -182,9 +197,12 @@ html.lms-dark.lms-theme-teal {
     --lms-accent: #2dd4bf;
     --lms-primary-rgb: 20, 184, 166;
     --lms-sidebar-active: #14b8a6;
-    --lms-header-bg: #042f2e;
-    --lms-sidebar-bg: #042f2e;
-    --lms-sidebar-hover: #134e4a;
+    --lms-header-bg: #134e4a;
+    --lms-sidebar-bg: #134e4a;
+    --lms-sidebar-hover: #0f766e;
+    --lms-bg: #05181a;
+    --lms-surface: #0d2b2d;
+    --lms-border: #1a4a4d;
 }
 
 /* --- Amber --- */
@@ -204,9 +222,12 @@ html.lms-dark.lms-theme-amber {
     --lms-accent: #fbbf24;
     --lms-primary-rgb: 245, 158, 11;
     --lms-sidebar-active: #f59e0b;
-    --lms-header-bg: #3b1500;
-    --lms-sidebar-bg: #3b1500;
-    --lms-sidebar-hover: #78350f;
+    --lms-header-bg: #78350f;
+    --lms-sidebar-bg: #78350f;
+    --lms-sidebar-hover: #92400e;
+    --lms-bg: #1a0e02;
+    --lms-surface: #2d1e07;
+    --lms-border: #4d350f;
 }
 
 /* ---------- Google Font (Inter) ---------- */
