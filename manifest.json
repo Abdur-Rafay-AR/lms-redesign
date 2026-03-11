@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Bahria LMS Redesign",
+  "version": "2.0",
+  "description": "A modern, clean redesign for Bahria University LMS — replaces the yellow theme with a sleek UI and optional dark mode.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "LMS Redesign Settings"
+  },
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://lms.bahria.edu.pk/*",
+        "*://cms.bahria.edu.pk/*"
+      ],
+      "css": [
+        "css/mystyle.css"
+      ],
+      "js": [
+        "js/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      width: 300px;
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+    .header {
+      background: linear-gradient(135deg, #2563eb, #6366f1);
+      padding: 20px;
+      text-align: center;
+      color: #fff;
+    }
+    .header h1 {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .header p {
+      font-size: 11px;
+      opacity: .85;
+      margin-top: 4px;
+    }
+    .section {
+      padding: 16px 20px;
+    }
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+    }
+    .toggle-desc {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+    /* Toggle switch */
+    .switch {
+      position: relative;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute;
+      inset: 0;
+      background: #cbd5e1;
+      border-radius: 24px;
+      cursor: pointer;
+      transition: background .25s;
+    }
+    .slider::before {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .25s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.2);
+    }
+    input:checked + .slider {
+      background: #2563eb;
+    }
+    input:checked + .slider::before {
+      transform: translateX(20px);
+    }
+    .footer {
+      text-align: center;
+      padding: 12px;
+      font-size: 11px;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Bahria LMS Redesign</h1>
+    <p>Modern UI for your learning portal</p>
+  </div>
+  <div class="section">
+    <div class="toggle-row">
+      <div>
+        <div class="toggle-label">Dark Mode</div>
+        <div class="toggle-desc">Switch to dark theme</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="darkToggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <div class="footer">v2.0 &mdash; Bahria LMS Redesign</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
