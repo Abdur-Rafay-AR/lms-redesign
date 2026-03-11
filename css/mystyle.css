@@ -484,8 +484,16 @@ input[type=number]::-webkit-outer-spin-button {
 .label-warning,
 .bg-yellow {
     background: var(--lms-primary) !important;
+    background-color: var(--lms-primary) !important;
     color: #fff !important;
     border-color: var(--lms-primary) !important;
+}
+
+/* Higher specificity to beat AdminLTE !important */
+.label.label-warning,
+.notifications-menu .label-warning,
+.navbar-nav .label-warning {
+    background-color: var(--lms-primary) !important;
 }
 
 .label-success, .bg-green {
@@ -797,6 +805,7 @@ html.lms-dark ::-webkit-scrollbar-thumb {
 
 .bg-yellow {
     background: var(--lms-primary) !important;
+    background-color: var(--lms-primary) !important;
     color: #fff !important;
 }
 
@@ -923,8 +932,14 @@ html.lms-dark .table > tbody > tr > td {
     color: var(--lms-text) !important;
 }
 
-html.lms-dark .table-hover > tbody > tr:hover > td {
-    background: rgba(59, 130, 246, 0.08) !important;
+html.lms-dark .table-hover > tbody > tr:hover {
+    background-color: var(--lms-surface) !important;
+}
+html.lms-dark .table-hover > tbody > tr:hover > td,
+html.lms-dark .table-hover > tbody > tr:hover > th {
+    background: rgba(59, 130, 246, 0.12) !important;
+    background-color: rgba(59, 130, 246, 0.12) !important;
+    color: var(--lms-text) !important;
 }
 
 html.lms-dark .dropdown-menu {
