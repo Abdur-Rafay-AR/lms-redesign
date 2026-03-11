@@ -167,20 +167,31 @@ p, span, a, td, th, li, label, div {
     font-family: var(--lms-font) !important;
 }
 
-/* Preserve icon fonts */
-.fa, .fas, .far, .fab, .glyphicon,
-[class^="fa-"], [class*=" fa-"],
-[class^="glyphicon-"], [class*=" glyphicon-"] {
-    font-family: inherit !important;
-}
+/* Preserve icon fonts — must come AFTER the broad typography rule */
+/* CMS uses Font Awesome 5 (not FA4), so use 'Font Awesome 5 Free' exclusively */
 .fa, [class^="fa-"], [class*=" fa-"] {
-    font-family: FontAwesome !important;
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900 !important;   /* default to solid weight for .fa (FA4 compat) */
+    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-font-smoothing: antialiased !important;
 }
-.fas, .far, .fab {
-    font-family: 'Font Awesome 5 Free', 'Font Awesome 5 Pro', FontAwesome !important;
+.fas {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900 !important;   /* solid */
+}
+.far {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 400 !important;   /* regular */
+}
+.fab {
+    font-family: 'Font Awesome 5 Brands' !important;
+    font-weight: normal !important;
 }
 .glyphicon, [class^="glyphicon-"], [class*=" glyphicon-"] {
     font-family: 'Glyphicons Halflings' !important;
+    font-weight: normal !important;
+    -moz-osx-font-smoothing: grayscale !important;
+    -webkit-font-smoothing: antialiased !important;
 }
 
 a {
@@ -242,13 +253,20 @@ header#header > .container-fluid {
     background: rgba(255,255,255,.08) !important;
 }
 
-/* Nav links */
+/* Nav links — also clear Aspire's #616161 background on the ul */
+#AccountsNavbar > ul.nav,
+#AccountsNavbar > ul {
+    background: transparent !important;
+}
 .navbar-nav > li > a {
     color: var(--lms-header-text) !important;
     font-size: 13px !important;
+    background: transparent !important;
 }
 .navbar-nav > li > a:hover,
-.navbar-nav > li.open > a {
+.navbar-nav > li.open > a,
+#AccountsNavbar > ul > li:hover,
+#AccountsNavbar > ul > li.dropdown.open {
     background: rgba(255,255,255,.08) !important;
     color: #fff !important;
 }
@@ -605,25 +623,45 @@ select.form-control {
     color: var(--lms-primary) !important;
 }
 
-/* User dropdown header */
-.dropdown-menu > li .avatar {
+/* User profile dropdown — themed gradient header */
+.navbar-nav .dropdown-menu > li.hidden-sm.hidden-xs > div,
+.navbar-nav .dropdown-menu > li.hidden-sm > div {
+    background: linear-gradient(135deg, var(--lms-primary), var(--lms-accent)) !important;
+    padding: 16px 12px !important;
+    margin: -6px -1px 6px -1px !important;
+    border-radius: var(--lms-radius) var(--lms-radius) 0 0 !important;
+    text-align: center !important;
+}
+.navbar-nav .dropdown-menu > li.hidden-sm.hidden-xs > div .avatar,
+.navbar-nav .dropdown-menu > li.hidden-sm > div .avatar {
     border-radius: 50% !important;
-    border: 2px solid var(--lms-border) !important;
+    border: 2px solid rgba(255,255,255,.4) !important;
     display: block !important;
     margin: 0 auto 8px !important;
 }
-.dropdown-menu > li .name {
+.navbar-nav .dropdown-menu > li.hidden-sm.hidden-xs > div .name,
+.navbar-nav .dropdown-menu > li.hidden-sm > div .name {
     display: block !important;
     font-weight: 600 !important;
-    color: var(--lms-text) !important;
-    text-align: center !important;
+    font-size: 14px !important;
+    color: #fff !important;
 }
-.dropdown-menu > li .email {
+.navbar-nav .dropdown-menu > li.hidden-sm.hidden-xs > div .email,
+.navbar-nav .dropdown-menu > li.hidden-sm > div .email {
     display: block !important;
     font-size: 11px !important;
-    color: var(--lms-text-muted) !important;
-    text-align: center !important;
-    margin-bottom: 8px !important;
+    color: rgba(255,255,255,.8) !important;
+    margin-top: 2px !important;
+}
+/* Other dropdown items */
+.dropdown-menu > li > a {
+    color: var(--lms-text) !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+}
+.dropdown-menu > li > a:hover {
+    background: var(--lms-bg) !important;
+    color: var(--lms-primary) !important;
 }
 .dropdown-menu .divider {
     background: var(--lms-border) !important;
