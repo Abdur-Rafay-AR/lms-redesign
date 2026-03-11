@@ -84,6 +84,32 @@ p, span, a, td, th, li, label, div {
     font-family: var(--lms-font) !important;
 }
 
+/* Preserve icon font families */
+.fa,
+.fas,
+.far,
+.fab,
+.ion,
+.ionicons,
+.glyphicon,
+[class^="fa-"],
+[class*=" fa-"],
+[class^="ion-"],
+[class*=" ion-"],
+[class^="glyphicon-"],
+[class*=" glyphicon-"] {
+    font-family: inherit !important;
+}
+.fa, [class^="fa-"], [class*=" fa-"] {
+    font-family: FontAwesome !important;
+}
+.sidebar-toggle {
+    font-family: FontAwesome !important;
+}
+.sidebar-toggle::before {
+    font-family: FontAwesome !important;
+}
+
 a {
     color: var(--lms-primary) !important;
     text-decoration: none !important;
@@ -154,6 +180,10 @@ a:hover {
 /* Sidebar toggle */
 .sidebar-toggle {
     color: var(--lms-header-text) !important;
+    font-family: FontAwesome !important;
+}
+.sidebar-toggle::before {
+    font-family: FontAwesome !important;
 }
 .sidebar-toggle:hover {
     background: rgba(255,255,255,.08) !important;
