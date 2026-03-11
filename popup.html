@@ -5,13 +5,13 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      width: 300px;
+      width: 320px;
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
       background: #f8fafc;
       color: #1e293b;
     }
     .header {
-      background: linear-gradient(135deg, #2563eb, #6366f1);
+      background: linear-gradient(135deg, var(--popup-primary, #2563eb), var(--popup-accent, #6366f1));
       padding: 20px;
       text-align: center;
       color: #fff;
@@ -28,6 +28,14 @@
     }
     .section {
       padding: 16px 20px;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: #94a3b8;
+      margin-bottom: 12px;
     }
     .toggle-row {
       display: flex;
@@ -76,10 +84,81 @@
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
     }
     input:checked + .slider {
-      background: #2563eb;
+      background: var(--popup-primary, #2563eb);
     }
     input:checked + .slider::before {
       transform: translateX(20px);
+    }
+    /* Theme grid */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    .theme-swatch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 8px 4px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all .2s;
+      background: transparent;
+    }
+    .theme-swatch:hover {
+      background: #f1f5f9;
+    }
+    .theme-swatch.active {
+      border-color: var(--popup-primary, #2563eb);
+      background: #f1f5f9;
+    }
+    .swatch-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(0,0,0,.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .swatch-circle::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 50%; height: 100%;
+    }
+    .swatch-name {
+      font-size: 10px;
+      font-weight: 500;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .theme-swatch.active .swatch-name {
+      color: var(--popup-primary, #2563eb);
+      font-weight: 600;
+    }
+    /* Swatch colors */
+    .swatch-blue       { background: #2563eb; }
+    .swatch-blue::after { background: #6366f1; }
+    .swatch-crimson       { background: #dc2626; }
+    .swatch-crimson::after { background: #e11d48; }
+    .swatch-forest       { background: #16a34a; }
+    .swatch-forest::after { background: #059669; }
+    .swatch-pink       { background: #ec4899; }
+    .swatch-pink::after { background: #f472b6; }
+    .swatch-mono       { background: #475569; }
+    .swatch-mono::after { background: #64748b; }
+    .swatch-purple       { background: #7c3aed; }
+    .swatch-purple::after { background: #8b5cf6; }
+    .swatch-teal       { background: #0d9488; }
+    .swatch-teal::after { background: #14b8a6; }
+    .swatch-amber       { background: #d97706; }
+    .swatch-amber::after { background: #f59e0b; }
+
+    .divider {
+      border-top: 1px solid #e2e8f0;
     }
     .footer {
       text-align: center;
@@ -91,11 +170,13 @@
   </style>
 </head>
 <body>
-  <div class="header">
+  <div class="header" id="popupHeader">
     <h1>Bahria LMS Redesign</h1>
     <p>Modern UI for your learning portal</p>
   </div>
+
   <div class="section">
+    <div class="section-title">Appearance</div>
     <div class="toggle-row">
       <div>
         <div class="toggle-label">Dark Mode</div>
@@ -107,6 +188,47 @@
       </label>
     </div>
   </div>
+
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="section-title">Color Theme</div>
+    <div class="theme-grid" id="themeGrid">
+      <button class="theme-swatch active" data-theme="blue" title="Blue">
+        <div class="swatch-circle swatch-blue"></div>
+        <span class="swatch-name">Blue</span>
+      </button>
+      <button class="theme-swatch" data-theme="crimson" title="Crimson">
+        <div class="swatch-circle swatch-crimson"></div>
+        <span class="swatch-name">Crimson</span>
+      </button>
+      <button class="theme-swatch" data-theme="forest" title="Forest">
+        <div class="swatch-circle swatch-forest"></div>
+        <span class="swatch-name">Forest</span>
+      </button>
+      <button class="theme-swatch" data-theme="pink" title="Baby Pink">
+        <div class="swatch-circle swatch-pink"></div>
+        <span class="swatch-name">Baby Pink</span>
+      </button>
+      <button class="theme-swatch" data-theme="mono" title="Monochrome">
+        <div class="swatch-circle swatch-mono"></div>
+        <span class="swatch-name">Mono</span>
+      </button>
+      <button class="theme-swatch" data-theme="purple" title="Purple">
+        <div class="swatch-circle swatch-purple"></div>
+        <span class="swatch-name">Purple</span>
+      </button>
+      <button class="theme-swatch" data-theme="teal" title="Teal">
+        <div class="swatch-circle swatch-teal"></div>
+        <span class="swatch-name">Teal</span>
+      </button>
+      <button class="theme-swatch" data-theme="amber" title="Amber">
+        <div class="swatch-circle swatch-amber"></div>
+        <span class="swatch-name">Amber</span>
+      </button>
+    </div>
+  </div>
+
   <div class="footer">v2.0 &mdash; Bahria LMS Redesign</div>
 
   <script src="popup.js"></script>
