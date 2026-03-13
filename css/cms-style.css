@@ -913,6 +913,67 @@ html.lms-dark .dropdown-menu {
 html.lms-dark .dropdown-menu > li > a {
     color: var(--lms-text) !important;
 }
+html.lms-dark #AccountsNavbar .dropdown-menu > li,
+html.lms-dark #AccountsNavbar .dropdown-menu > li > a,
+html.lms-dark #AccountsNavbar .dropdown-menu > li > a .fa,
+html.lms-dark #AccountsNavbar .dropdown-menu > li > a .fas,
+html.lms-dark #AccountsNavbar .dropdown-menu > li > a .glyphicon {
+    color: #fff !important;
+}
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a,
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a:link,
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a:visited,
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a:focus,
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a:active,
+html.lms-dark #ProfileInfo_hlProfile,
+html.lms-dark #ProfileInfo_hlLogoff,
+html.lms-dark #ProfileInfo_hlChangePassword {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a i,
+html.lms-dark #AccountsNavbar .dropdown-menu[role="menu"] > li > a span {
+    color: #fff !important;
+    opacity: 1 !important;
+}
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"],
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li,
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a,
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a *,
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] #ProfileInfo_hlProfile,
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] #ProfileInfo_hlLogoff,
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] #ProfileInfo_hlChangePassword {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li:not(.hidden-sm):not(.hidden-xs) {
+    background-color: var(--lms-surface) !important;
+}
+
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li:not(.hidden-sm):not(.hidden-xs) > a {
+    background-color: transparent !important;
+}
+
+html.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li:not(.hidden-sm):not(.hidden-xs) > a:hover,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li:not(.hidden-sm):not(.hidden-xs) > a:hover {
+    background-color: rgba(255,255,255,.08) !important;
+}
+
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"],
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a:link,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a:visited,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a:focus,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a:active,
+body.lms-dark #AccountsNavbar ul.dropdown-menu[role="menu"] > li > a *,
+body.lms-dark #ProfileInfo_hlProfile,
+body.lms-dark #ProfileInfo_hlLogoff,
+body.lms-dark #ProfileInfo_hlChangePassword {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
 html.lms-dark .dropdown-menu > li > a:hover {
     background: var(--lms-bg) !important;
 }
