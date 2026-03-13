@@ -504,7 +504,10 @@ h1#pageTitle_h1 .fa {
     color: var(--lms-text) !important;
 }
 
-.table > thead > tr > th {
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table-bordered > thead > tr > th,
+.table-bordered > tbody > tr > th {
     background: var(--lms-bg) !important;
     color: var(--lms-text-muted) !important;
     font-weight: 600 !important;
@@ -534,6 +537,28 @@ h1#pageTitle_h1 .fa {
 
 .table-striped > tbody > tr:nth-of-type(odd) {
     background: rgba(241,245,249,.5) !important;
+}
+
+.box .table > thead > tr > th,
+.box .table > tbody > tr:first-child > th,
+.box-body .table > thead > tr > th,
+.box-body .table > tbody > tr:first-child > th,
+.panel .table > thead > tr > th,
+.panel .table > tbody > tr:first-child > th {
+    background: rgba(var(--lms-primary-rgb), 0.14) !important;
+    color: var(--lms-primary-d) !important;
+    border-color: rgba(var(--lms-primary-rgb), 0.28) !important;
+}
+
+html.lms-dark .box .table > thead > tr > th,
+html.lms-dark .box .table > tbody > tr:first-child > th,
+html.lms-dark .box-body .table > thead > tr > th,
+html.lms-dark .box-body .table > tbody > tr:first-child > th,
+html.lms-dark .panel .table > thead > tr > th,
+html.lms-dark .panel .table > tbody > tr:first-child > th {
+    background: rgba(var(--lms-primary-rgb), 0.22) !important;
+    color: var(--lms-text) !important;
+    border-color: rgba(var(--lms-primary-rgb), 0.35) !important;
 }
 
 /* ============================================================
@@ -861,7 +886,10 @@ html.lms-dark .form-control {
     border-color: var(--lms-border) !important;
 }
 
-html.lms-dark .table > thead > tr > th {
+html.lms-dark .table > thead > tr > th,
+html.lms-dark .table > tbody > tr > th,
+html.lms-dark .table-bordered > thead > tr > th,
+html.lms-dark .table-bordered > tbody > tr > th {
     background: rgba(15,23,42,.5) !important;
     color: var(--lms-text-muted) !important;
     border-color: var(--lms-border) !important;
