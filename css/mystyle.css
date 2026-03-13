@@ -350,6 +350,11 @@ a:hover {
     line-height: 22px !important;
 }
 
+html.lms-theme-mono .main-header .navbar h5,
+html.lms-theme-mono .main-header .navbar h5 #loadServerTime {
+    color: #000000 !important;
+}
+
 /* Navbar links */
 .navbar-nav > li > a {
     color: var(--lms-header-text) !important;
@@ -791,6 +796,10 @@ input[type=number]::-webkit-outer-spin-button {
 .notifications-menu .label-warning,
 .navbar-nav .label-warning {
     background-color: var(--lms-primary) !important;
+}
+
+html.lms-theme-mono small.label.label-warning[title*="Extended"] {
+    color: #000000 !important;
 }
 
 .label-success, .bg-green {
