@@ -675,6 +675,81 @@ select.form-control {
     padding-right: 32px !important;
 }
 
+/* LMS course/semester dropdown theme support */
+select#courseId.form-control,
+select#semesterId.form-control {
+    border-color: var(--lms-border) !important;
+    color: var(--lms-text) !important;
+    background-color: var(--lms-surface) !important;
+}
+
+.lms-native-select-hidden {
+    position: absolute !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+}
+
+.lms-custom-select {
+    position: relative !important;
+    width: 100% !important;
+}
+
+.lms-custom-select[data-select-id="courseId"] {
+    max-width: 220px !important;
+}
+
+.lms-custom-select-trigger {
+    width: 100% !important;
+    text-align: left !important;
+    padding-right: 34px !important;
+    cursor: pointer !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 12px center !important;
+}
+
+.lms-custom-select.open .lms-custom-select-trigger,
+.lms-custom-select-trigger:hover,
+.lms-custom-select-trigger:focus {
+    border-color: var(--lms-primary) !important;
+    box-shadow: 0 0 0 3px rgba(var(--lms-primary-rgb), 0.15) !important;
+}
+
+.lms-custom-select-menu {
+    display: block !important;
+    position: fixed !important;
+    z-index: 9999999 !important;
+    margin: 0 !important;
+    padding: 6px 0 !important;
+    list-style: none !important;
+    border-radius: var(--lms-radius) !important;
+    border: 1px solid var(--lms-border) !important;
+    background: var(--lms-surface) !important;
+    box-shadow: var(--lms-shadow-md) !important;
+    max-height: 400px !important;
+    overflow-y: auto !important;
+}
+
+.lms-custom-select.open .lms-custom-select-menu {
+    display: block !important;
+}
+
+.lms-custom-select-option {
+    padding: 8px 12px !important;
+    color: var(--lms-text) !important;
+    cursor: pointer !important;
+}
+
+.lms-custom-select-option:hover {
+    background: rgba(var(--lms-primary-rgb), 0.16) !important;
+    color: var(--lms-text) !important;
+}
+
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
