@@ -214,7 +214,7 @@ header#header.navbar-fixed-top {
     background-color: var(--lms-header-bg) !important;
     border-bottom: 1px solid rgba(255,255,255,.08) !important;
     box-shadow: var(--lms-shadow) !important;
-    min-height: 56px !important;
+    min-height: 48px !important;
 }
 
 /* Kill army-green navbar background */
@@ -223,11 +223,24 @@ header#header > .container-fluid {
     background: transparent !important;
 }
 
+header#header .container-fluid {
+    min-height: 48px !important;
+}
+
+header#header .navbar-header,
+header#header .navbar-collapse {
+    min-height: 48px !important;
+}
+
 .navbar-brand,
 #brandName, #brandShortName, #brandAlias {
     color: var(--lms-header-text) !important;
     font-weight: 700 !important;
     font-size: 15px !important;
+    height: 48px !important;
+    line-height: 24px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
 }
 .navbar-brand:hover {
     color: rgba(255,255,255,.85) !important;
@@ -238,6 +251,10 @@ header#header > .container-fluid {
 #aSideBar {
     color: var(--lms-header-text) !important;
     font-size: 20px !important;
+    height: 48px !important;
+    line-height: 24px !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
 }
 #aSideBar:hover {
     background: rgba(255,255,255,.08) !important;
@@ -246,6 +263,10 @@ header#header > .container-fluid {
 /* Mobile toggle button */
 .navbar-toggle {
     border-color: rgba(255,255,255,.3) !important;
+    margin-top: 7px !important;
+    margin-bottom: 7px !important;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
 }
 .navbar-toggle .icon-bar {
     background-color: var(--lms-header-text) !important;
@@ -264,7 +285,40 @@ header#header > .container-fluid {
     color: var(--lms-header-text) !important;
     font-size: 13px !important;
     background: transparent !important;
+    padding-top: 14px !important;
+    padding-bottom: 14px !important;
 }
+
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    padding-top: 11px !important;
+    padding-bottom: 17px !important;
+}
+
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > canvas,
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > .name,
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > .caret {
+    position: relative !important;
+    top: -.5px !important;
+}
+
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > canvas {
+    flex: 0 0 auto !important;
+}
+
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > .name {
+    margin-left: 0 !important;
+    line-height: 1.2 !important;
+}
+
+#AccountsNavbar .navbar-nav > li > a.dropdown-toggle > .caret {
+    align-self: center !important;
+    margin-top: 0 !important;
+    vertical-align: middle !important;
+}
+
 .navbar-nav > li > a:hover,
 .navbar-nav > li.open > a,
 #AccountsNavbar > ul > li:hover,
@@ -813,8 +867,24 @@ html.lms-dark .table > thead > tr > th {
     border-color: var(--lms-border) !important;
 }
 
+html.lms-dark table > tbody > tr > th,
+html.lms-dark table > tbody > tr > td,
+html.lms-dark table > tfoot > tr > th,
+html.lms-dark table > tfoot > tr > td,
 html.lms-dark .table > tbody > tr > td {
     border-color: var(--lms-border) !important;
+    color: var(--lms-text) !important;
+}
+
+html.lms-dark .table > tbody > tr > th {
+    border-color: var(--lms-border) !important;
+    color: var(--lms-text) !important;
+}
+
+html.lms-dark table th small,
+html.lms-dark table td small,
+html.lms-dark table th small a,
+html.lms-dark table td small a {
     color: var(--lms-text) !important;
 }
 
