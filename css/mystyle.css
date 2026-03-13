@@ -63,27 +63,27 @@ html.lms-dark {
 
 /* --- Crimson --- */
 html.lms-theme-crimson {
-    --lms-primary: #dc2626;
-    --lms-primary-d: #b91c1c;
-    --lms-accent: #e11d48;
-    --lms-primary-rgb: 220, 38, 38;
-    --lms-sidebar-active: #dc2626;
-    --lms-header-bg: #7f1d1d;
-    --lms-sidebar-bg: #7f1d1d;
-    --lms-sidebar-hover: #991b1b;
+    --lms-primary: #991b1b;
+    --lms-primary-d: #7f1d1d;
+    --lms-accent: #9f1239;
+    --lms-primary-rgb: 153, 27, 27;
+    --lms-sidebar-active: #991b1b;
+    --lms-header-bg: #450a0a;
+    --lms-sidebar-bg: #450a0a;
+    --lms-sidebar-hover: #7f1d1d;
 }
 html.lms-dark.lms-theme-crimson {
-    --lms-primary: #ef4444;
-    --lms-primary-d: #f87171;
-    --lms-accent: #fb7185;
-    --lms-primary-rgb: 239, 68, 68;
-    --lms-sidebar-active: #ef4444;
-    --lms-header-bg: #7f1d1d;
-    --lms-sidebar-bg: #7f1d1d;
-    --lms-sidebar-hover: #991b1b;
-    --lms-bg: #1a0808;
-    --lms-surface: #2d1010;
-    --lms-border: #4d1f1f;
+    --lms-primary: #b91c1c;
+    --lms-primary-d: #dc2626;
+    --lms-accent: #be1239;
+    --lms-primary-rgb: 185, 28, 28;
+    --lms-sidebar-active: #b91c1c;
+    --lms-header-bg: #450a0a;
+    --lms-sidebar-bg: #450a0a;
+    --lms-sidebar-hover: #7f1d1d;
+    --lms-bg: #130404;
+    --lms-surface: #200808;
+    --lms-border: #3d1010;
 }
 
 /* --- Forest --- */
@@ -559,13 +559,13 @@ html.lms-theme-mono .box-header.text-center h5.text-center.col-xs-1 #loadServerT
 .table > tbody > tr > th,
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th {
-    background: var(--lms-bg) !important;
-    color: var(--lms-text-muted) !important;
+    background: rgba(var(--lms-primary-rgb), 0.12) !important;
+    color: var(--lms-primary-d) !important;
     font-weight: 600 !important;
     font-size: 12px !important;
     text-transform: uppercase !important;
     letter-spacing: .5px !important;
-    border-bottom: 2px solid var(--lms-border) !important;
+    border-bottom: 2px solid rgba(var(--lms-primary-rgb), 0.3) !important;
     padding: 12px 16px !important;
 }
 
@@ -1254,9 +1254,9 @@ html.lms-dark .table > thead > tr > th,
 html.lms-dark .table > tbody > tr > th,
 html.lms-dark .table-bordered > thead > tr > th,
 html.lms-dark .table-bordered > tbody > tr > th {
-    background: rgba(15, 23, 42, .5) !important;
-    color: var(--lms-text-muted) !important;
-    border-color: var(--lms-border) !important;
+    background: rgba(var(--lms-primary-rgb), 0.2) !important;
+    color: var(--lms-text) !important;
+    border-color: rgba(var(--lms-primary-rgb), 0.35) !important;
 }
 
 html.lms-dark .table > tbody > tr > td {
