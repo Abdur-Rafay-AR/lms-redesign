@@ -521,6 +521,17 @@ ul.sidebar-menu li a span {
     color: rgba(255,255,255,.9) !important;
 }
 
+html.lms-theme-mono .box-header.text-center h3.box-title,
+html.lms-theme-mono .box-header.text-center .col-xs-2,
+html.lms-theme-mono .box-header.text-center .col-xs-1,
+html.lms-theme-mono .box-header.text-center label,
+html.lms-theme-mono .box-header.text-center span,
+html.lms-theme-mono .box-header.text-center div,
+html.lms-theme-mono .box-header.text-center h5.text-center.col-xs-1,
+html.lms-theme-mono .box-header.text-center h5.text-center.col-xs-1 #loadServerTime {
+    color: #000000 !important;
+}
+
 .box-body {
     padding: 16px 20px !important;
     background: var(--lms-surface) !important;
