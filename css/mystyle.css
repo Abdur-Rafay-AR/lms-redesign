@@ -507,7 +507,7 @@ ul.sidebar-menu li a span {
 }
 
 .box-header {
-    background: linear-gradient(135deg, var(--lms-primary), var(--lms-accent)) !important;
+    background: var(--lms-primary) !important;
     border-bottom: none !important;
     border-radius: var(--lms-radius) var(--lms-radius) 0 0 !important;
     padding: 14px 20px !important;
@@ -886,7 +886,7 @@ div.alert > h5 {
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
     height: auto !important;
-    background: linear-gradient(135deg, var(--lms-primary), var(--lms-accent)) !important;
+    background: var(--lms-primary) !important;
     border-radius: var(--lms-radius) var(--lms-radius) 0 0 !important;
     padding: 20px !important;
 }
