@@ -999,3 +999,7 @@ html.lms-dark .breadcrumb {
     background: var(--lms-surface) !important;
     border-color: var(--lms-border) !important;
 }
+
+html.lms-theme-mono .box-header .col-lg-3 > h3.box-title {
+    color: #000000 !important;
+}
