@@ -7,11 +7,11 @@
     body {
       width: 320px;
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f6f8fb;
-      color: #243447;
+      background: #f8fafc;
+      color: #1e293b;
     }
     .header {
-      background: linear-gradient(135deg, var(--popup-primary, #3f72af), var(--popup-accent, #5b8fc7));
+      background: linear-gradient(135deg, var(--popup-primary, #1e3a8a), var(--popup-accent, #2563eb));
       padding: 20px;
       text-align: center;
       color: #fff;
@@ -34,7 +34,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .5px;
-      color: #7d8ea5;
+      color: #94a3b8;
       margin-bottom: 12px;
     }
     .toggle-row {
@@ -42,17 +42,17 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 0;
-      border-bottom: 1px solid #dce4ef;
+      border-bottom: 1px solid #e2e8f0;
     }
     .toggle-row:last-child { border-bottom: none; }
     .toggle-label {
       font-size: 13px;
       font-weight: 500;
-      color: #30465f;
+      color: #334155;
     }
     .toggle-desc {
       font-size: 11px;
-      color: #8195ad;
+      color: #94a3b8;
       margin-top: 2px;
     }
     /* Toggle switch */
@@ -66,7 +66,7 @@
     .slider {
       position: absolute;
       inset: 0;
-      background: #c4d1e0;
+      background: #cbd5e1;
       border-radius: 24px;
       cursor: pointer;
       transition: background .25s;
@@ -84,7 +84,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
     }
     input:checked + .slider {
-      background: var(--popup-primary, #3f72af);
+      background: var(--popup-primary, #1e3a8a);
     }
     input:checked + .slider::before {
       transform: translateX(20px);
@@ -108,11 +108,11 @@
       background: transparent;
     }
     .theme-swatch:hover {
-      background: #eef3f9;
+      background: #f1f5f9;
     }
     .theme-swatch.active {
-      border-color: var(--popup-primary, #3f72af);
-      background: #eef3f9;
+      border-color: var(--popup-primary, #1e3a8a);
+      background: #f1f5f9;
     }
     .swatch-circle {
       width: 32px;
@@ -131,17 +131,17 @@
     .swatch-name {
       font-size: 10px;
       font-weight: 500;
-      color: #617894;
+      color: #64748b;
       text-align: center;
       line-height: 1.2;
     }
     .theme-swatch.active .swatch-name {
-      color: var(--popup-primary, #3f72af);
+      color: var(--popup-primary, #1e3a8a);
       font-weight: 600;
     }
     /* Swatch colors */
-    .swatch-blue       { background: #2563eb; }
-    .swatch-blue::after { background: #6366f1; }
+    .swatch-blue       { background: #1e3a8a; }
+    .swatch-blue::after { background: #2563eb; }
     .swatch-crimson       { background: #dc2626; }
     .swatch-crimson::after { background: #e11d48; }
     .swatch-forest       { background: #16a34a; }
@@ -166,14 +166,14 @@
     .swatch-dusk::after { background: #6366f1; }
 
     .divider {
-      border-top: 1px solid #dce4ef;
+      border-top: 1px solid #e2e8f0;
     }
     .footer {
       text-align: center;
       padding: 12px;
       font-size: 11px;
-      color: #7d8ea5;
-      border-top: 1px solid #dce4ef;
+      color: #94a3b8;
+      border-top: 1px solid #e2e8f0;
     }
   </style>
 </head>
