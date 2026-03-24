@@ -7,11 +7,11 @@
     body {
       width: 320px;
       font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+      background: #f6f8fb;
+      color: #243447;
     }
     .header {
-      background: linear-gradient(135deg, var(--popup-primary, #0b5233), var(--popup-accent, #1D6E47));
+      background: linear-gradient(135deg, var(--popup-primary, #3f72af), var(--popup-accent, #5b8fc7));
       padding: 20px;
       text-align: center;
       color: #fff;
@@ -34,7 +34,7 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: .5px;
-      color: #94a3b8;
+      color: #7d8ea5;
       margin-bottom: 12px;
     }
     .toggle-row {
@@ -42,17 +42,17 @@
       align-items: center;
       justify-content: space-between;
       padding: 12px 0;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid #dce4ef;
     }
     .toggle-row:last-child { border-bottom: none; }
     .toggle-label {
       font-size: 13px;
       font-weight: 500;
-      color: #334155;
+      color: #30465f;
     }
     .toggle-desc {
       font-size: 11px;
-      color: #94a3b8;
+      color: #8195ad;
       margin-top: 2px;
     }
     /* Toggle switch */
@@ -66,7 +66,7 @@
     .slider {
       position: absolute;
       inset: 0;
-      background: #cbd5e1;
+      background: #c4d1e0;
       border-radius: 24px;
       cursor: pointer;
       transition: background .25s;
@@ -84,7 +84,7 @@
       box-shadow: 0 1px 3px rgba(0,0,0,.2);
     }
     input:checked + .slider {
-      background: var(--popup-primary, #041B11);
+      background: var(--popup-primary, #3f72af);
     }
     input:checked + .slider::before {
       transform: translateX(20px);
@@ -108,11 +108,11 @@
       background: transparent;
     }
     .theme-swatch:hover {
-      background: #f1f5f9;
+      background: #eef3f9;
     }
     .theme-swatch.active {
-      border-color: var(--popup-primary, #041B11);
-      background: #f1f5f9;
+      border-color: var(--popup-primary, #3f72af);
+      background: #eef3f9;
     }
     .swatch-circle {
       width: 32px;
@@ -131,12 +131,12 @@
     .swatch-name {
       font-size: 10px;
       font-weight: 500;
-      color: #64748b;
+      color: #617894;
       text-align: center;
       line-height: 1.2;
     }
     .theme-swatch.active .swatch-name {
-      color: var(--popup-primary, #041B11);
+      color: var(--popup-primary, #3f72af);
       font-weight: 600;
     }
     /* Swatch colors */
@@ -156,16 +156,24 @@
     .swatch-teal::after { background: #14b8a6; }
     .swatch-amber       { background: #d97706; }
     .swatch-amber::after { background: #f59e0b; }
+    .swatch-ocean       { background: #3b82f6; }
+    .swatch-ocean::after { background: #06b6d4; }
+    .swatch-sage       { background: #65a30d; }
+    .swatch-sage::after { background: #84cc16; }
+    .swatch-rose       { background: #be185d; }
+    .swatch-rose::after { background: #e11d48; }
+    .swatch-dusk       { background: #475569; }
+    .swatch-dusk::after { background: #6366f1; }
 
     .divider {
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid #dce4ef;
     }
     .footer {
       text-align: center;
       padding: 12px;
       font-size: 11px;
-      color: #94a3b8;
-      border-top: 1px solid #e2e8f0;
+      color: #7d8ea5;
+      border-top: 1px solid #dce4ef;
     }
   </style>
 </head>
@@ -225,6 +233,22 @@
       <button class="theme-swatch" data-theme="amber" title="Amber">
         <div class="swatch-circle swatch-amber"></div>
         <span class="swatch-name">Amber</span>
+      </button>
+      <button class="theme-swatch" data-theme="ocean" title="Ocean">
+        <div class="swatch-circle swatch-ocean"></div>
+        <span class="swatch-name">Ocean</span>
+      </button>
+      <button class="theme-swatch" data-theme="sage" title="Sage">
+        <div class="swatch-circle swatch-sage"></div>
+        <span class="swatch-name">Sage</span>
+      </button>
+      <button class="theme-swatch" data-theme="rose" title="Rose">
+        <div class="swatch-circle swatch-rose"></div>
+        <span class="swatch-name">Rose</span>
+      </button>
+      <button class="theme-swatch" data-theme="dusk" title="Dusk">
+        <div class="swatch-circle swatch-dusk"></div>
+        <span class="swatch-name">Dusk</span>
       </button>
     </div>
   </div>

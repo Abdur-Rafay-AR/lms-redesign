@@ -16,19 +16,19 @@
 
 /* ---------- CSS Variables (Default = Blue) ---------- */
 :root {
-    --lms-primary: #2563eb;
-    --lms-primary-d: #1d4ed8;
-    --lms-accent: #6366f1;
-    --lms-primary-rgb: 37, 99, 235;
-    --lms-bg: #f1f5f9;
+    --lms-primary: #3f72af;
+    --lms-primary-d: #355f93;
+    --lms-accent: #5b8fc7;
+    --lms-primary-rgb: 63, 114, 175;
+    --lms-bg: #f6f8fb;
     --lms-surface: #ffffff;
-    --lms-sidebar-bg: #1e293b;
-    --lms-sidebar-hover: #334155;
-    --lms-sidebar-active: #2563eb;
-    --lms-text: #1e293b;
-    --lms-text-muted: #64748b;
-    --lms-border: #e2e8f0;
-    --lms-header-bg: #1e293b;
+    --lms-sidebar-bg: #2f4159;
+    --lms-sidebar-hover: #3b526f;
+    --lms-sidebar-active: #3f72af;
+    --lms-text: #243447;
+    --lms-text-muted: #6d8198;
+    --lms-border: #dce4ef;
+    --lms-header-bg: #2f4159;
     --lms-header-text: #f8fafc;
     --lms-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
     --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
@@ -39,19 +39,19 @@
 
 /* ---------- Dark Mode Variables ---------- */
 html.lms-dark {
-    --lms-primary: #3b82f6;
-    --lms-primary-d: #60a5fa;
-    --lms-accent: #818cf8;
-    --lms-primary-rgb: 59, 130, 246;
-    --lms-bg: #0f172a;
-    --lms-surface: #1e293b;
-    --lms-sidebar-bg: #0f172a;
-    --lms-sidebar-hover: #1e293b;
-    --lms-sidebar-active: #3b82f6;
-    --lms-text: #e2e8f0;
-    --lms-text-muted: #94a3b8;
-    --lms-border: #334155;
-    --lms-header-bg: #0f172a;
+    --lms-primary: #79a9dd;
+    --lms-primary-d: #8db7e5;
+    --lms-accent: #8fbde7;
+    --lms-primary-rgb: 121, 169, 221;
+    --lms-bg: #121a26;
+    --lms-surface: #1f2a3a;
+    --lms-sidebar-bg: #111a27;
+    --lms-sidebar-hover: #1d2a3c;
+    --lms-sidebar-active: #79a9dd;
+    --lms-text: #dde7f3;
+    --lms-text-muted: #9bb0c7;
+    --lms-border: #314259;
+    --lms-header-bg: #111a27;
     --lms-header-text: #f1f5f9;
     --lms-shadow: 0 1px 3px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.2);
     --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.3), 0 2px 4px -2px rgba(0,0,0,.2);
@@ -234,6 +234,106 @@ html.lms-dark.lms-theme-amber {
     --lms-bg: #1a0e02;
     --lms-surface: #2d1e07;
     --lms-border: #4d350f;
+}
+
+/* --- Ocean --- */
+html.lms-theme-ocean {
+    --lms-primary: #1d4ed8;
+    --lms-primary-d: #1e40af;
+    --lms-accent: #0891b2;
+    --lms-primary-rgb: 29, 78, 216;
+    --lms-sidebar-active: #1d4ed8;
+    --lms-header-bg: #1e3a8a;
+    --lms-sidebar-bg: #1e3a8a;
+    --lms-sidebar-hover: #1e40af;
+}
+html.lms-dark.lms-theme-ocean {
+    --lms-primary: #60a5fa;
+    --lms-primary-d: #93c5fd;
+    --lms-accent: #22d3ee;
+    --lms-primary-rgb: 96, 165, 250;
+    --lms-sidebar-active: #60a5fa;
+    --lms-header-bg: #0c234f;
+    --lms-sidebar-bg: #0c234f;
+    --lms-sidebar-hover: #1e3a8a;
+    --lms-bg: #071427;
+    --lms-surface: #10243e;
+    --lms-border: #1f3b61;
+}
+
+/* --- Sage --- */
+html.lms-theme-sage {
+    --lms-primary: #4d7c0f;
+    --lms-primary-d: #3f6212;
+    --lms-accent: #65a30d;
+    --lms-primary-rgb: 77, 124, 15;
+    --lms-sidebar-active: #4d7c0f;
+    --lms-header-bg: #365314;
+    --lms-sidebar-bg: #365314;
+    --lms-sidebar-hover: #3f6212;
+}
+html.lms-dark.lms-theme-sage {
+    --lms-primary: #a3e635;
+    --lms-primary-d: #bef264;
+    --lms-accent: #84cc16;
+    --lms-primary-rgb: 163, 230, 53;
+    --lms-sidebar-active: #a3e635;
+    --lms-header-bg: #22360b;
+    --lms-sidebar-bg: #22360b;
+    --lms-sidebar-hover: #365314;
+    --lms-bg: #0b1406;
+    --lms-surface: #18280f;
+    --lms-border: #2d471d;
+}
+
+/* --- Rose --- */
+html.lms-theme-rose {
+    --lms-primary: #be185d;
+    --lms-primary-d: #9d174d;
+    --lms-accent: #e11d48;
+    --lms-primary-rgb: 190, 24, 93;
+    --lms-sidebar-active: #be185d;
+    --lms-header-bg: #881337;
+    --lms-sidebar-bg: #881337;
+    --lms-sidebar-hover: #9d174d;
+}
+html.lms-dark.lms-theme-rose {
+    --lms-primary: #fb7185;
+    --lms-primary-d: #fda4af;
+    --lms-accent: #f472b6;
+    --lms-primary-rgb: 251, 113, 133;
+    --lms-sidebar-active: #fb7185;
+    --lms-header-bg: #5e1130;
+    --lms-sidebar-bg: #5e1130;
+    --lms-sidebar-hover: #881337;
+    --lms-bg: #190913;
+    --lms-surface: #2a1020;
+    --lms-border: #4b1e37;
+}
+
+/* --- Dusk --- */
+html.lms-theme-dusk {
+    --lms-primary: #6366f1;
+    --lms-primary-d: #4f46e5;
+    --lms-accent: #475569;
+    --lms-primary-rgb: 99, 102, 241;
+    --lms-sidebar-active: #6366f1;
+    --lms-header-bg: #334155;
+    --lms-sidebar-bg: #334155;
+    --lms-sidebar-hover: #475569;
+}
+html.lms-dark.lms-theme-dusk {
+    --lms-primary: #a5b4fc;
+    --lms-primary-d: #c7d2fe;
+    --lms-accent: #94a3b8;
+    --lms-primary-rgb: 165, 180, 252;
+    --lms-sidebar-active: #a5b4fc;
+    --lms-header-bg: #1f2937;
+    --lms-sidebar-bg: #1f2937;
+    --lms-sidebar-hover: #334155;
+    --lms-bg: #0f1520;
+    --lms-surface: #1a2433;
+    --lms-border: #314055;
 }
 
 /* ---------- Google Font (Inter) ---------- */
