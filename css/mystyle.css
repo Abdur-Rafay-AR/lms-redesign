@@ -16,19 +16,19 @@
 
 /* ---------- CSS Variables (Default = Blue) ---------- */
 :root {
-    --lms-primary: #3f72af;
-    --lms-primary-d: #355f93;
-    --lms-accent: #5b8fc7;
-    --lms-primary-rgb: 63, 114, 175;
-    --lms-bg: #f6f8fb;
+    --lms-primary: #1e3a8a;
+    --lms-primary-d: #1e2f6d;
+    --lms-accent: #2563eb;
+    --lms-primary-rgb: 30, 58, 138;
+    --lms-bg: #f1f5f9;
     --lms-surface: #ffffff;
-    --lms-sidebar-bg: #2f4159;
-    --lms-sidebar-hover: #3b526f;
-    --lms-sidebar-active: #3f72af;
-    --lms-text: #243447;
-    --lms-text-muted: #6d8198;
-    --lms-border: #dce4ef;
-    --lms-header-bg: #2f4159;
+    --lms-sidebar-bg: #1e293b;
+    --lms-sidebar-hover: #334155;
+    --lms-sidebar-active: #1e3a8a;
+    --lms-text: #1e293b;
+    --lms-text-muted: #64748b;
+    --lms-border: #e2e8f0;
+    --lms-header-bg: #1e293b;
     --lms-header-text: #f8fafc;
     --lms-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
     --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
@@ -39,19 +39,19 @@
 
 /* ---------- Dark Mode Variables ---------- */
 html.lms-dark {
-    --lms-primary: #79a9dd;
-    --lms-primary-d: #8db7e5;
-    --lms-accent: #8fbde7;
-    --lms-primary-rgb: 121, 169, 221;
-    --lms-bg: #121a26;
-    --lms-surface: #1f2a3a;
-    --lms-sidebar-bg: #111a27;
-    --lms-sidebar-hover: #1d2a3c;
-    --lms-sidebar-active: #79a9dd;
-    --lms-text: #dde7f3;
-    --lms-text-muted: #9bb0c7;
-    --lms-border: #314259;
-    --lms-header-bg: #111a27;
+    --lms-primary: #3b82f6;
+    --lms-primary-d: #60a5fa;
+    --lms-accent: #818cf8;
+    --lms-primary-rgb: 59, 130, 246;
+    --lms-bg: #0f172a;
+    --lms-surface: #1e293b;
+    --lms-sidebar-bg: #0f172a;
+    --lms-sidebar-hover: #1e293b;
+    --lms-sidebar-active: #3b82f6;
+    --lms-text: #e2e8f0;
+    --lms-text-muted: #94a3b8;
+    --lms-border: #334155;
+    --lms-header-bg: #0f172a;
     --lms-header-text: #f1f5f9;
     --lms-shadow: 0 1px 3px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.2);
     --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.3), 0 2px 4px -2px rgba(0,0,0,.2);
