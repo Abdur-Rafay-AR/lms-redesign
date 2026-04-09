@@ -814,6 +814,11 @@ select#semesterId.form-control {
     background-color: var(--lms-surface) !important;
 }
 
+select#courseId.form-control {
+    width: min(100%, 420px) !important;
+    min-width: 320px !important;
+}
+
 .lms-native-select-hidden {
     position: absolute !important;
     opacity: 0 !important;
@@ -831,7 +836,17 @@ select#semesterId.form-control {
 }
 
 .lms-custom-select[data-select-id="courseId"] {
-    max-width: 220px !important;
+    width: min(100%, 420px) !important;
+    min-width: 320px !important;
+    max-width: none !important;
+}
+
+@media (max-width: 768px) {
+    select#courseId.form-control,
+    .lms-custom-select[data-select-id="courseId"] {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
 }
 
 .lms-custom-select-trigger {
@@ -864,6 +879,8 @@ select#semesterId.form-control {
     box-shadow: var(--lms-shadow-md) !important;
     max-height: 400px !important;
     overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
 }
 
 .lms-custom-select.open .lms-custom-select-menu {

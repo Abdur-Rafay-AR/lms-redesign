@@ -126,7 +126,6 @@ function initThemedLmsSelects() {
       }
     });
     window.addEventListener('resize', closeAll);
-    window.addEventListener('scroll', closeAll, true);
   }
 }
 
