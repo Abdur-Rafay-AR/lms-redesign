@@ -8,13 +8,93 @@
     if (theme !== 'blue') {
       document.documentElement.classList.add('lms-theme-' + theme);
     }
+    applyLmsInitialAvatar();
   });
 })();
+
+function getLmsDisplayName() {
+  const selectors = [
+    '.navbar-nav > .user-menu > a .hidden-xs',
+    '.navbar-nav > .user-menu > a span',
+    '.user-header > p'
+  ];
+
+  for (const selector of selectors) {
+    const el = document.querySelector(selector);
+    if (!el) continue;
+    const text = (el.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!text) continue;
+
+    // Remove likely roll-number prefixes when reading dropdown text.
+    const cleaned = text.replace(/^\d[\d\-\s]+/, '').trim();
+    if (cleaned) return cleaned;
+  }
+
+  return 'User';
+}
+
+function getInitialsFromName(name) {
+  const words = (name || '')
+    .replace(/[^A-Za-z\s]/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (words.length >= 2) {
+    return (words[0][0] + words[1][0]).toUpperCase();
+  }
+
+  if (words.length === 1) {
+    return words[0].slice(0, 2).toUpperCase();
+  }
+
+  return 'U';
+}
+
+function buildInitialAvatarDataUri(initials, backgroundColor, textColor) {
+  const safeInitials = (initials || 'U').slice(0, 2).toUpperCase();
+  const bg = backgroundColor || '#1e3a8a';
+  const fg = textColor || '#ffffff';
+  const svg = [
+    '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">',
+    '<rect width="128" height="128" rx="64" ry="64" fill="' + bg + '"/>',
+    '<text x="50%" y="54%" text-anchor="middle" dominant-baseline="middle"',
+    ' font-family="Segoe UI, Arial, sans-serif" font-size="52" font-weight="700" fill="' + fg + '">',
+    safeInitials,
+    '</text>',
+    '</svg>'
+  ].join('');
+
+  return 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+}
+
+function applyLmsInitialAvatar() {
+  const rootStyles = getComputedStyle(document.documentElement);
+  const backgroundColor = rootStyles.getPropertyValue('--lms-primary').trim() || '#1e3a8a';
+  const textColor = rootStyles.getPropertyValue('--lms-on-primary').trim() || '#ffffff';
+  const initials = getInitialsFromName(getLmsDisplayName());
+  const avatarSrc = buildInitialAvatarDataUri(initials, backgroundColor, textColor);
+
+  const avatarSelectors = [
+    'img.user-image',
+    'li.user-header img.img-circle',
+    'img[src*="_viewfiles/images/person.png"]',
+    'img[src*="/images/person.png"]'
+  ];
+
+  document.querySelectorAll(avatarSelectors.join(', ')).forEach((img) => {
+    if (img.getAttribute('src') !== avatarSrc) {
+      img.setAttribute('src', avatarSrc);
+      img.setAttribute('alt', initials);
+    }
+  });
+}
 
 // Listen for toggle messages from popup
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === 'toggleDark') {
     document.documentElement.classList.toggle('lms-dark', msg.enabled);
+    applyLmsInitialAvatar();
   }
   if (msg.type === 'setTheme') {
     // Remove all existing theme classes (snapshot first to avoid live-list mutation)
@@ -25,6 +105,7 @@ chrome.runtime.onMessage.addListener((msg) => {
     if (msg.theme && msg.theme !== 'blue') {
       document.documentElement.classList.add('lms-theme-' + msg.theme);
     }
+    applyLmsInitialAvatar();
   }
 });
 
@@ -130,7 +211,24 @@ function initThemedLmsSelects() {
 }
 
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initThemedLmsSelects);
+  document.addEventListener('DOMContentLoaded', () => {
+    initThemedLmsSelects();
+    applyLmsInitialAvatar();
+  });
 } else {
   initThemedLmsSelects();
+  applyLmsInitialAvatar();
+}
+
+if (!document.documentElement.dataset.lmsAvatarObserverBound) {
+  document.documentElement.dataset.lmsAvatarObserverBound = '1';
+  const avatarObserver = new MutationObserver(() => {
+    applyLmsInitialAvatar();
+  });
+
+  avatarObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+    characterData: true
+  });
 }
