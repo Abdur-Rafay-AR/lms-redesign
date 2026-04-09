@@ -16,21 +16,21 @@
 
 /* ---------- CSS Variables (Default = Blue) ---------- */
 :root {
-    --lms-primary: #1e3a8a;
-    --lms-primary-d: #1e2f6d;
-    --lms-accent: #2563eb;
-    --lms-primary-rgb: 30, 58, 138;
+    --lms-primary: #132a5b;
+    --lms-primary-d: #0f2148;
+    --lms-accent: #2d4f8f;
+    --lms-primary-rgb: 19, 42, 91;
     --lms-on-primary: #ffffff;
     --lms-on-primary-muted: rgba(255,255,255,.9);
     --lms-bg: #f1f5f9;
     --lms-surface: #ffffff;
-    --lms-sidebar-bg: #1e293b;
-    --lms-sidebar-hover: #334155;
-    --lms-sidebar-active: #1e3a8a;
+    --lms-sidebar-bg: #111f3d;
+    --lms-sidebar-hover: #1b2f56;
+    --lms-sidebar-active: #173874;
     --lms-text: #1e293b;
     --lms-text-muted: #64748b;
     --lms-border: #e2e8f0;
-    --lms-header-bg: #1e293b;
+    --lms-header-bg: #0f1d38;
     --lms-header-text: #f8fafc;
     --lms-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
     --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
@@ -41,17 +41,17 @@
 
 /* ---------- Dark Mode Variables ---------- */
 html.lms-dark {
-    --lms-primary: #3b82f6;
-    --lms-primary-d: #60a5fa;
-    --lms-accent: #818cf8;
-    --lms-primary-rgb: 59, 130, 246;
+    --lms-primary: #5f88cd;
+    --lms-primary-d: #7fa0d8;
+    --lms-accent: #7f99c8;
+    --lms-primary-rgb: 95, 136, 205;
     --lms-on-primary: #ffffff;
     --lms-on-primary-muted: rgba(255,255,255,.9);
     --lms-bg: #0f172a;
     --lms-surface: #1e293b;
     --lms-sidebar-bg: #0f172a;
     --lms-sidebar-hover: #1e293b;
-    --lms-sidebar-active: #3b82f6;
+    --lms-sidebar-active: #5f88cd;
     --lms-text: #e2e8f0;
     --lms-text-muted: #94a3b8;
     --lms-border: #334155;
@@ -269,27 +269,27 @@ html.lms-dark.lms-theme-ocean {
 
 /* --- Sage --- */
 html.lms-theme-sage {
-    --lms-primary: #4d7c0f;
-    --lms-primary-d: #3f6212;
-    --lms-accent: #65a30d;
-    --lms-primary-rgb: 77, 124, 15;
-    --lms-sidebar-active: #4d7c0f;
-    --lms-header-bg: #365314;
-    --lms-sidebar-bg: #365314;
-    --lms-sidebar-hover: #3f6212;
+    --lms-primary: #556b2f;
+    --lms-primary-d: #455825;
+    --lms-accent: #6f8f3d;
+    --lms-primary-rgb: 85, 107, 47;
+    --lms-sidebar-active: #556b2f;
+    --lms-header-bg: #3b4d24;
+    --lms-sidebar-bg: #3b4d24;
+    --lms-sidebar-hover: #4b6030;
 }
 html.lms-dark.lms-theme-sage {
-    --lms-primary: #a3e635;
-    --lms-primary-d: #bef264;
-    --lms-accent: #84cc16;
-    --lms-primary-rgb: 163, 230, 53;
-    --lms-sidebar-active: #a3e635;
-    --lms-header-bg: #22360b;
-    --lms-sidebar-bg: #22360b;
-    --lms-sidebar-hover: #365314;
-    --lms-bg: #0b1406;
-    --lms-surface: #18280f;
-    --lms-border: #2d471d;
+    --lms-primary: #9ab870;
+    --lms-primary-d: #adc58a;
+    --lms-accent: #88a960;
+    --lms-primary-rgb: 154, 184, 112;
+    --lms-sidebar-active: #9ab870;
+    --lms-header-bg: #2b3a1b;
+    --lms-sidebar-bg: #2b3a1b;
+    --lms-sidebar-hover: #3f5329;
+    --lms-bg: #0f160a;
+    --lms-surface: #1c2615;
+    --lms-border: #344426;
 }
 
 /* --- Rose --- */
