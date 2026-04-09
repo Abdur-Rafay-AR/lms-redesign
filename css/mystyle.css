@@ -20,6 +20,8 @@
     --lms-primary-d: #1e2f6d;
     --lms-accent: #2563eb;
     --lms-primary-rgb: 30, 58, 138;
+    --lms-on-primary: #ffffff;
+    --lms-on-primary-muted: rgba(255,255,255,.9);
     --lms-bg: #f1f5f9;
     --lms-surface: #ffffff;
     --lms-sidebar-bg: #1e293b;
@@ -43,6 +45,8 @@ html.lms-dark {
     --lms-primary-d: #60a5fa;
     --lms-accent: #818cf8;
     --lms-primary-rgb: 59, 130, 246;
+    --lms-on-primary: #ffffff;
+    --lms-on-primary-muted: rgba(255,255,255,.9);
     --lms-bg: #0f172a;
     --lms-surface: #1e293b;
     --lms-sidebar-bg: #0f172a;
@@ -152,6 +156,8 @@ html.lms-dark.lms-theme-mono {
     --lms-primary-d: #ffffff;
     --lms-accent: #cccccc;
     --lms-primary-rgb: 240, 240, 240;
+    --lms-on-primary: #111111;
+    --lms-on-primary-muted: rgba(17,17,17,.9);
     --lms-sidebar-active: #f0f0f0;
     --lms-header-bg: #111111;
     --lms-sidebar-bg: #111111;
@@ -441,6 +447,7 @@ a:hover {
 .main-header .navbar h5[style*="background:#3C8D27"],
 .main-header .navbar h5 {
     background: var(--lms-primary) !important;
+    color: var(--lms-on-primary) !important;
     border: 1px solid var(--lms-primary-d) !important;
     border-radius: 20px !important;
     box-shadow: none !important;
@@ -448,11 +455,6 @@ a:hover {
     font-size: 13px !important;
     padding: 4px 14px !important;
     line-height: 22px !important;
-}
-
-html.lms-theme-mono .main-header .navbar h5,
-html.lms-theme-mono .main-header .navbar h5 #loadServerTime {
-    color: #000000 !important;
 }
 
 /* Navbar links */
@@ -618,23 +620,12 @@ ul.sidebar-menu li a span {
 .box-header h3,
 .box-header h4,
 .box-header div {
-    color: #fff !important;
+    color: var(--lms-on-primary) !important;
     font-weight: 600 !important;
 }
 .box-header label,
 .box-header span {
-    color: rgba(255,255,255,.9) !important;
-}
-
-html.lms-theme-mono .box-header.text-center h3.box-title,
-html.lms-theme-mono .box-header.text-center .col-xs-2,
-html.lms-theme-mono .box-header.text-center .col-xs-1,
-html.lms-theme-mono .box-header.text-center label,
-html.lms-theme-mono .box-header.text-center span,
-html.lms-theme-mono .box-header.text-center div,
-html.lms-theme-mono .box-header.text-center h5.text-center.col-xs-1,
-html.lms-theme-mono .box-header.text-center h5.text-center.col-xs-1 #loadServerTime {
-    color: #000000 !important;
+    color: var(--lms-on-primary-muted) !important;
 }
 
 .box-body {
@@ -885,9 +876,14 @@ select#semesterId.form-control {
     cursor: pointer !important;
 }
 
-.lms-custom-select-option:hover {
+.lms-custom-select-option:hover,
+.lms-custom-select-option.is-selected {
     background: rgba(var(--lms-primary-rgb), 0.16) !important;
     color: var(--lms-text) !important;
+}
+
+.lms-custom-select-option.is-selected {
+    font-weight: 600 !important;
 }
 
 input[type=number]::-webkit-inner-spin-button,
@@ -923,7 +919,7 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 html.lms-theme-mono small.label.label-warning[title*="Extended"] {
-    color: #000000 !important;
+    color: var(--lms-on-primary) !important;
 }
 
 .label-success, .bg-green {

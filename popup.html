@@ -106,9 +106,18 @@
       border: 2px solid transparent;
       transition: all .2s;
       background: transparent;
+      appearance: none;
+      -webkit-appearance: none;
+      font: inherit;
+      color: inherit;
     }
     .theme-swatch:hover {
       background: #f1f5f9;
+      border-color: rgba(var(--popup-primary-rgb, 30, 58, 138), .2);
+    }
+    .theme-swatch:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(var(--popup-primary-rgb, 30, 58, 138), .25);
     }
     .theme-swatch.active {
       border-color: var(--popup-primary, #1e3a8a);
@@ -134,6 +143,9 @@
       color: #64748b;
       text-align: center;
       line-height: 1.2;
+    }
+    .theme-swatch:hover .swatch-name {
+      color: #334155;
     }
     .theme-swatch.active .swatch-name {
       color: var(--popup-primary, #1e3a8a);

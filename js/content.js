@@ -75,6 +75,9 @@ function initThemedLmsSelects() {
       Array.from(select.options).forEach((opt, index) => {
         const item = document.createElement('li');
         item.className = 'lms-custom-select-option';
+        if (index === select.selectedIndex) {
+          item.classList.add('is-selected');
+        }
         item.textContent = opt.textContent.trim();
         item.addEventListener('click', () => {
           select.selectedIndex = index;
@@ -122,6 +125,8 @@ function initThemedLmsSelects() {
         closeAll();
       }
     });
+    window.addEventListener('resize', closeAll);
+    window.addEventListener('scroll', closeAll, true);
   }
 }
 
