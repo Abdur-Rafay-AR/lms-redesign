@@ -935,6 +935,20 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: var(--lms-primary) !important;
 }
 
+/* Keep the navbar notification indicator as a compact dot. */
+.notifications-menu > a > .label.label-warning {
+    display: inline-block !important;
+    width: 8px !important;
+    height: 8px !important;
+    min-width: 8px !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    line-height: 8px !important;
+    font-size: 0 !important;
+    vertical-align: top !important;
+    margin-left: 4px !important;
+}
+
 html.lms-theme-mono small.label.label-warning[title*="Extended"] {
     color: var(--lms-on-primary) !important;
 }
