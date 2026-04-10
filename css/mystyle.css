@@ -1325,6 +1325,76 @@ html.lms-dark ::-webkit-scrollbar-thumb {
     border-radius: var(--lms-radius) var(--lms-radius) 0 0 !important;
 }
 
+/* Keep accordion/panel heading links readable on colored heading backgrounds. */
+.panel-primary > .panel-heading,
+.panel-success > .panel-heading,
+.panel-info > .panel-heading,
+.panel-warning > .panel-heading,
+.panel-danger > .panel-heading {
+    color: var(--lms-on-primary) !important;
+}
+
+.panel-primary > .panel-heading a,
+.panel-success > .panel-heading a,
+.panel-info > .panel-heading a,
+.panel-warning > .panel-heading a,
+.panel-danger > .panel-heading a,
+.panel-primary > .panel-heading .fa,
+.panel-success > .panel-heading .fa,
+.panel-info > .panel-heading .fa,
+.panel-warning > .panel-heading .fa,
+.panel-danger > .panel-heading .fa {
+    color: inherit !important;
+}
+
+/* FAQ accordion readability across themes (normal/hover/focus/visited states). */
+#accordion .panel-heading,
+.panel-group .panel-heading {
+    background: var(--lms-primary) !important;
+    border-color: var(--lms-primary-d) !important;
+    color: var(--lms-on-primary) !important;
+}
+
+#accordion .panel-heading a,
+#accordion .panel-heading a:visited,
+#accordion .panel-heading a:hover,
+#accordion .panel-heading a:focus,
+.panel-group .panel-heading a[data-toggle="collapse"],
+.panel-group .panel-heading a[data-toggle="collapse"]:visited,
+.panel-group .panel-heading a[data-toggle="collapse"]:hover,
+.panel-group .panel-heading a[data-toggle="collapse"]:focus,
+#accordion .panel-heading .fa,
+.panel-group .panel-heading .fa {
+    color: var(--lms-on-primary) !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+}
+
+/* FAQ on LMS uses .box.box-primary > .box-header, not .panel-heading. */
+#accordion .box.box-primary > .box-header {
+    background: var(--lms-primary) !important;
+    border-color: var(--lms-primary-d) !important;
+}
+
+#accordion .box.box-primary > .box-header .box-title,
+#accordion .box.box-primary > .box-header .box-title > a,
+#accordion .box.box-primary > .box-header .box-title > a:visited,
+#accordion .box.box-primary > .box-header .box-title > a:hover,
+#accordion .box.box-primary > .box-header .box-title > a:focus,
+#accordion .box.box-primary > .box-header .box-title > a:active,
+#accordion .box.box-primary > .box-header .box-title > a span,
+#accordion .box.box-primary > .box-header .box-title > a .fa {
+    color: var(--lms-on-primary) !important;
+    opacity: 1 !important;
+    text-decoration: none !important;
+}
+
+#accordion .panel-collapse > .box-body,
+#accordion .panel-collapse.collapse,
+#accordion .panel-collapse.in {
+    color: var(--lms-text) !important;
+}
+
 /* Well styling */
 .well {
     background: var(--lms-bg) !important;
