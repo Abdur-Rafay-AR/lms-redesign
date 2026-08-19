@@ -148,7 +148,7 @@ header#header.navbar-fixed-top {
     background-color: var(--lms-header-bg) !important;
     border-bottom: 1px solid rgba(255,255,255,.08) !important;
     box-shadow: var(--lms-shadow) !important;
-    min-height: 48px !important;
+    min-height: var(--lms-header-h) !important;
 }
 
 /* Kill army-green navbar background */
@@ -158,12 +158,12 @@ header#header > .container-fluid {
 }
 
 header#header .container-fluid {
-    min-height: 48px !important;
+    min-height: var(--lms-header-h) !important;
 }
 
 header#header .navbar-header,
 header#header .navbar-collapse {
-    min-height: 48px !important;
+    min-height: var(--lms-header-h) !important;
 }
 
 .navbar-brand,
@@ -171,10 +171,10 @@ header#header .navbar-collapse {
     color: var(--lms-header-text) !important;
     font-weight: 700 !important;
     font-size: 15px !important;
-    height: 48px !important;
-    line-height: 24px !important;
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
+    height: var(--lms-header-h) !important;
+    line-height: var(--lms-header-h) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 .navbar-brand:hover {
     color: rgba(255,255,255,.85) !important;
@@ -185,10 +185,10 @@ header#header .navbar-collapse {
 #aSideBar {
     color: var(--lms-header-text) !important;
     font-size: 20px !important;
-    height: 48px !important;
-    line-height: 24px !important;
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
+    height: var(--lms-header-h) !important;
+    line-height: var(--lms-header-h) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 #aSideBar:hover {
     background: rgba(255,255,255,.08) !important;
@@ -1217,4 +1217,76 @@ html.lms-dark .card-header {
     background: var(--lms-tint) !important;
     border-bottom: 1px solid var(--lms-border) !important;
     color: var(--lms-text) !important;
+}
+
+/* ============================================================
+   LAYOUT OFFSETS & BREATHING ROOM
+   ------------------------------------------------------------
+   Aspire pins the sidebar at top:42px and pads #pageContainer by 42px,
+   both matching its own 42px navbar. Our header is taller, so the sidebar
+   and the page content were sitting underneath it - the first sidebar
+   item and the page title ended up jammed against the header edge.
+   ============================================================ */
+
+/* Aspire's `top:42px` here carries no !important, so this wins. Its height is
+   handled by that same rule's `bottom:0`, which still resolves correctly once
+   the top edge moves. */
+aside#sideBar {
+    top: var(--lms-header-h) !important;
+}
+
+/* The gap above the first menu item goes on the inner container: Aspire pins
+   `padding:0 !important` on aside#sideBar itself at a specificity
+   (body.Army > form#form1 > div#pageContainer > aside#sideBar) that no
+   reasonable selector here can outrank. Nothing competes for padding on
+   #sideMenuList. */
+#sideMenuList,
+aside#sideBar .list-group {
+    padding-top: 10px !important;
+}
+
+#pageContainer {
+    padding-top: var(--lms-header-h) !important;
+}
+
+/* Give the content column room on all sides instead of butting the page
+   title straight against the header and the sidebar divider. */
+#pageContent {
+    padding: 18px 22px 0 !important;
+}
+
+/* The page title bar carried tighter padding than the panels below it,
+   which made the whole top of the page read as compressed. */
+#pageHeading {
+    padding: 18px 22px !important;
+    margin-bottom: 22px !important;
+    border-radius: var(--lms-radius) !important;
+    border: 1px solid var(--lms-border) !important;
+}
+
+#pageHeading h1,
+h1#pageTitle_h1 {
+    line-height: 1.3 !important;
+}
+
+/* Sidebar rows: a touch more height and a clearer gap from the header. */
+aside#sideBar .list-group-item,
+#sideMenuList > a.list-group-item {
+    padding: 12px 18px !important;
+    line-height: 1.4 !important;
+}
+
+/* Nested submenu items sit one step in from their parent. */
+aside#sideBar .list-group-subMenu .list-group-item,
+#sideMenuList .list-group-subMenu > a.list-group-item {
+    padding-left: 34px !important;
+    font-size: 13px !important;
+}
+
+@media (max-width: 767px) {
+    /* The sidebar slides over the content on small screens, so the content
+       column only needs its own inset. */
+    #pageContent {
+        padding: 14px 16px 0 !important;
+    }
 }
