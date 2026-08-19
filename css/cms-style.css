@@ -1,212 +1,60 @@
 /* ============================================================
-   Bahria CMS Redesign — Modern UI Override
+   Bahria CMS Redesign - Modern UI Override
    Target: cms.bahria.edu.pk  (Aspire framework / Bootstrap 3)
+   ------------------------------------------------------------
+   Design tokens, dark-mode values and the 12 colour themes live
+   in css/theme.css, which the manifest loads immediately before
+   this file. Everything below is CMS-specific layout work.
    ============================================================ */
-
-/* ---------- Google Font ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
-/* ---------- CSS Variables (Default = Blue) ---------- */
-:root {
-    --lms-primary:      #132a5b;
-    --lms-primary-d:    #0f2148;
-    --lms-accent:       #2d4f8f;
-    --lms-primary-rgb:  19, 42, 91;
-    --lms-on-primary:   #ffffff;
-    --lms-on-primary-muted: rgba(255,255,255,.9);
-    --lms-bg:           #f1f5f9;
-    --lms-surface:      #ffffff;
-    --lms-sidebar-bg:   #111f3d;
-    --lms-sidebar-hover:#1b2f56;
-    --lms-sidebar-active:#173874;
-    --lms-text:         #1e293b;
-    --lms-text-muted:   #64748b;
-    --lms-border:       #e2e8f0;
-    --lms-header-bg:    #0f1d38;
-    --lms-header-text:  #f8fafc;
-    --lms-shadow:       0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-    --lms-shadow-md:    0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
-    --lms-radius:       8px;
-    --lms-transition:   .2s ease;
-    --lms-font:         'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* ---------- Dark Mode ---------- */
-html.lms-dark {
-    --lms-primary:      #5f88cd;
-    --lms-primary-d:    #7fa0d8;
-    --lms-accent:       #7f99c8;
-    --lms-primary-rgb:  95, 136, 205;
-    --lms-on-primary:   #ffffff;
-    --lms-on-primary-muted: rgba(255,255,255,.9);
-    --lms-bg:           #0f172a;
-    --lms-surface:      #1e293b;
-    --lms-sidebar-bg:   #0f172a;
-    --lms-sidebar-hover:#1e293b;
-    --lms-sidebar-active:#5f88cd;
-    --lms-text:         #e2e8f0;
-    --lms-text-muted:   #94a3b8;
-    --lms-border:       #334155;
-    --lms-header-bg:    #0f172a;
-    --lms-header-text:  #f1f5f9;
-    --lms-shadow:       0 1px 3px rgba(0,0,0,.3), 0 1px 2px rgba(0,0,0,.2);
-    --lms-shadow-md:    0 4px 6px -1px rgba(0,0,0,.3), 0 2px 4px -2px rgba(0,0,0,.2);
-}
-
-/* ============================================================
-   THEME OVERRIDES (mirrors mystyle.css)
-   ============================================================ */
-
-/* --- Crimson --- */
-html.lms-theme-crimson {
-    --lms-primary: #991b1b; --lms-primary-d: #7f1d1d; --lms-accent: #9f1239;
-    --lms-primary-rgb: 153, 27, 27; --lms-sidebar-active: #991b1b;
-    --lms-header-bg: #450a0a; --lms-sidebar-bg: #450a0a; --lms-sidebar-hover: #7f1d1d;
-}
-html.lms-dark.lms-theme-crimson {
-    --lms-primary: #b91c1c; --lms-primary-d: #dc2626; --lms-accent: #be1239;
-    --lms-primary-rgb: 185, 28, 28; --lms-sidebar-active: #b91c1c;
-    --lms-header-bg: #450a0a; --lms-sidebar-bg: #450a0a; --lms-sidebar-hover: #7f1d1d;
-    --lms-bg: #130404; --lms-surface: #200808; --lms-border: #3d1010;
-}
-
-/* --- Forest --- */
-html.lms-theme-forest {
-    --lms-primary: #16a34a; --lms-primary-d: #15803d; --lms-accent: #059669;
-    --lms-primary-rgb: 22, 163, 74; --lms-sidebar-active: #16a34a;
-    --lms-header-bg: #14532d; --lms-sidebar-bg: #14532d; --lms-sidebar-hover: #15803d;
-}
-html.lms-dark.lms-theme-forest {
-    --lms-primary: #22c55e; --lms-primary-d: #4ade80; --lms-accent: #34d399;
-    --lms-primary-rgb: 34, 197, 94; --lms-sidebar-active: #22c55e;
-    --lms-header-bg: #14532d; --lms-sidebar-bg: #14532d; --lms-sidebar-hover: #15803d;
-    --lms-bg: #071a0e; --lms-surface: #112b18; --lms-border: #1e4a2c;
-}
-
-/* --- Baby Pink --- */
-html.lms-theme-pink {
-    --lms-primary: #ec4899; --lms-primary-d: #db2777; --lms-accent: #f472b6;
-    --lms-primary-rgb: 236, 72, 153; --lms-sidebar-active: #ec4899;
-    --lms-header-bg: #831843; --lms-sidebar-bg: #831843; --lms-sidebar-hover: #9d174d;
-}
-html.lms-dark.lms-theme-pink {
-    --lms-primary: #f472b6; --lms-primary-d: #f9a8d4; --lms-accent: #fb7bac;
-    --lms-primary-rgb: 244, 114, 182; --lms-sidebar-active: #f472b6;
-    --lms-header-bg: #831843; --lms-sidebar-bg: #831843; --lms-sidebar-hover: #9d174d;
-    --lms-bg: #1a0812; --lms-surface: #2d1020; --lms-border: #4d1f38;
-}
-
-/* --- Monochrome --- */
-html.lms-theme-mono {
-    --lms-primary: #111111; --lms-primary-d: #000000; --lms-accent: #333333;
-    --lms-primary-rgb: 17, 17, 17; --lms-sidebar-active: #111111;
-    --lms-header-bg: #111111; --lms-sidebar-bg: #111111; --lms-sidebar-hover: #222222;
-}
-html.lms-dark.lms-theme-mono {
-    --lms-primary: #f0f0f0; --lms-primary-d: #ffffff; --lms-accent: #cccccc;
-    --lms-primary-rgb: 240, 240, 240; --lms-sidebar-active: #f0f0f0;
-    --lms-on-primary: #111111; --lms-on-primary-muted: rgba(17,17,17,.9);
-    --lms-header-bg: #111111; --lms-sidebar-bg: #111111; --lms-sidebar-hover: #222222;
-    --lms-bg: #0a0a0a; --lms-surface: #141414; --lms-border: #2a2a2a;
-}
-
-/* --- Purple --- */
-html.lms-theme-purple {
-    --lms-primary: #7c3aed; --lms-primary-d: #6d28d9; --lms-accent: #8b5cf6;
-    --lms-primary-rgb: 124, 58, 237; --lms-sidebar-active: #7c3aed;
-    --lms-header-bg: #3b0764; --lms-sidebar-bg: #3b0764; --lms-sidebar-hover: #4c1d95;
-}
-html.lms-dark.lms-theme-purple {
-    --lms-primary: #8b5cf6; --lms-primary-d: #a78bfa; --lms-accent: #a78bfa;
-    --lms-primary-rgb: 139, 92, 246; --lms-sidebar-active: #8b5cf6;
-    --lms-header-bg: #3b0764; --lms-sidebar-bg: #3b0764; --lms-sidebar-hover: #4c1d95;
-    --lms-bg: #0e0820; --lms-surface: #1a1235; --lms-border: #2e1f5e;
-}
-
-/* --- Teal --- */
-html.lms-theme-teal {
-    --lms-primary: #0d9488; --lms-primary-d: #0f766e; --lms-accent: #14b8a6;
-    --lms-primary-rgb: 13, 148, 136; --lms-sidebar-active: #0d9488;
-    --lms-header-bg: #134e4a; --lms-sidebar-bg: #134e4a; --lms-sidebar-hover: #0f766e;
-}
-html.lms-dark.lms-theme-teal {
-    --lms-primary: #14b8a6; --lms-primary-d: #2dd4bf; --lms-accent: #2dd4bf;
-    --lms-primary-rgb: 20, 184, 166; --lms-sidebar-active: #14b8a6;
-    --lms-header-bg: #134e4a; --lms-sidebar-bg: #134e4a; --lms-sidebar-hover: #0f766e;
-    --lms-bg: #05181a; --lms-surface: #0d2b2d; --lms-border: #1a4a4d;
-}
-
-/* --- Amber --- */
-html.lms-theme-amber {
-    --lms-primary: #d97706; --lms-primary-d: #b45309; --lms-accent: #f59e0b;
-    --lms-primary-rgb: 217, 119, 6; --lms-sidebar-active: #d97706;
-    --lms-header-bg: #78350f; --lms-sidebar-bg: #78350f; --lms-sidebar-hover: #92400e;
-}
-html.lms-dark.lms-theme-amber {
-    --lms-primary: #f59e0b; --lms-primary-d: #fbbf24; --lms-accent: #fbbf24;
-    --lms-primary-rgb: 245, 158, 11; --lms-sidebar-active: #f59e0b;
-    --lms-header-bg: #78350f; --lms-sidebar-bg: #78350f; --lms-sidebar-hover: #92400e;
-    --lms-bg: #1a0e02; --lms-surface: #2d1e07; --lms-border: #4d350f;
-}
-
-/* --- Ocean --- */
-html.lms-theme-ocean {
-    --lms-primary: #1d4ed8; --lms-primary-d: #1e40af; --lms-accent: #0891b2;
-    --lms-primary-rgb: 29, 78, 216; --lms-sidebar-active: #1d4ed8;
-    --lms-header-bg: #1e3a8a; --lms-sidebar-bg: #1e3a8a; --lms-sidebar-hover: #1e40af;
-}
-html.lms-dark.lms-theme-ocean {
-    --lms-primary: #60a5fa; --lms-primary-d: #93c5fd; --lms-accent: #22d3ee;
-    --lms-primary-rgb: 96, 165, 250; --lms-sidebar-active: #60a5fa;
-    --lms-header-bg: #0c234f; --lms-sidebar-bg: #0c234f; --lms-sidebar-hover: #1e3a8a;
-    --lms-bg: #071427; --lms-surface: #10243e; --lms-border: #1f3b61;
-}
-
-/* --- Sage --- */
-html.lms-theme-sage {
-    --lms-primary: #556b2f; --lms-primary-d: #455825; --lms-accent: #6f8f3d;
-    --lms-primary-rgb: 85, 107, 47; --lms-sidebar-active: #556b2f;
-    --lms-header-bg: #3b4d24; --lms-sidebar-bg: #3b4d24; --lms-sidebar-hover: #4b6030;
-}
-html.lms-dark.lms-theme-sage {
-    --lms-primary: #9ab870; --lms-primary-d: #adc58a; --lms-accent: #88a960;
-    --lms-primary-rgb: 154, 184, 112; --lms-sidebar-active: #9ab870;
-    --lms-header-bg: #2b3a1b; --lms-sidebar-bg: #2b3a1b; --lms-sidebar-hover: #3f5329;
-    --lms-bg: #0f160a; --lms-surface: #1c2615; --lms-border: #344426;
-}
-
-/* --- Rose --- */
-html.lms-theme-rose {
-    --lms-primary: #be185d; --lms-primary-d: #9d174d; --lms-accent: #e11d48;
-    --lms-primary-rgb: 190, 24, 93; --lms-sidebar-active: #be185d;
-    --lms-header-bg: #881337; --lms-sidebar-bg: #881337; --lms-sidebar-hover: #9d174d;
-}
-html.lms-dark.lms-theme-rose {
-    --lms-primary: #fb7185; --lms-primary-d: #fda4af; --lms-accent: #f472b6;
-    --lms-primary-rgb: 251, 113, 133; --lms-sidebar-active: #fb7185;
-    --lms-header-bg: #5e1130; --lms-sidebar-bg: #5e1130; --lms-sidebar-hover: #881337;
-    --lms-bg: #190913; --lms-surface: #2a1020; --lms-border: #4b1e37;
-}
-
-/* --- Dusk --- */
-html.lms-theme-dusk {
-    --lms-primary: #6366f1; --lms-primary-d: #4f46e5; --lms-accent: #475569;
-    --lms-primary-rgb: 99, 102, 241; --lms-sidebar-active: #6366f1;
-    --lms-header-bg: #334155; --lms-sidebar-bg: #334155; --lms-sidebar-hover: #475569;
-}
-html.lms-dark.lms-theme-dusk {
-    --lms-primary: #a5b4fc; --lms-primary-d: #c7d2fe; --lms-accent: #94a3b8;
-    --lms-primary-rgb: 165, 180, 252; --lms-sidebar-active: #a5b4fc;
-    --lms-header-bg: #1f2937; --lms-sidebar-bg: #1f2937; --lms-sidebar-hover: #334155;
-    --lms-bg: #0f1520; --lms-surface: #1a2433; --lms-border: #314055;
-}
 
 /* ============================================================
    GLOBAL BASE
    ============================================================ */
-*, *::before, *::after {
-    transition: background-color var(--lms-transition), color var(--lms-transition),
-                border-color var(--lms-transition), box-shadow var(--lms-transition);
+/* Transitions are scoped to things a user actually interacts with. A universal
+   `* { transition }` makes the browser track a running animation for every node
+   on the page - on the LMS course tables (hundreds of cells) that alone is
+   enough to make scrolling and theme switches feel sluggish. */
+a,
+.btn,
+button,
+input,
+select,
+textarea,
+.box,
+.panel,
+.card,
+.well,
+.label,
+.alert,
+.callout,
+.info-box,
+.small-box,
+.list-group-item,
+.dropdown-menu > li > a,
+.nav-tabs > li > a,
+.sidebar-menu > li > a,
+.sidebar-menu .treeview-menu > li > a,
+.pagination > li > a,
+.pagination > li > span,
+.table > tbody > tr,
+.form-control,
+.modal-content,
+.progress-bar {
+    transition:
+        background-color var(--lms-transition),
+        color var(--lms-transition),
+        border-color var(--lms-transition),
+        box-shadow var(--lms-transition),
+        transform var(--lms-dur-fast) var(--lms-ease),
+        opacity var(--lms-transition);
+}
+
+/* The <html>/<body> pair still cross-fades so flipping dark mode or a theme
+   reads as one deliberate transition rather than an instant repaint. */
+html,
+body {
+    transition: background-color var(--lms-dur-slow) var(--lms-ease),
+                color var(--lms-dur-slow) var(--lms-ease);
 }
 
 body,
@@ -254,11 +102,40 @@ p, span, a, td, th, li, label, div {
 }
 
 a {
-    color: var(--lms-primary) !important;
+    /* --lms-link, not --lms-primary: a few dark themes keep a deep primary for
+       button fills that would be unreadable as link text. */
+    color: var(--lms-link) !important;
     text-decoration: none !important;
 }
 a:hover {
-    color: var(--lms-primary-d) !important;
+    color: var(--lms-link) !important;
+    text-decoration: none !important;
+}
+
+/* Underline on hover only for prose links. Nav, sidebar, tab, pagination and
+   button-shaped links already signal hover with a background change, and an
+   underline there just looks like a rendering glitch. */
+.content a:hover,
+.content-wrapper a:hover,
+#content a:hover,
+.box-body a:hover,
+.panel-body a:hover,
+.main-footer a:hover {
+    text-decoration: underline !important;
+    text-underline-offset: 2px !important;
+}
+
+.content a.btn:hover,
+.content-wrapper a.btn:hover,
+#content a.btn:hover,
+.box-body a.btn:hover,
+.panel-body a.btn:hover,
+.content a.list-group-item:hover,
+#content a.list-group-item:hover,
+.content .nav-tabs a:hover,
+#content .nav-tabs a:hover,
+.content .pagination a:hover,
+#content .pagination a:hover {
     text-decoration: none !important;
 }
 
@@ -566,7 +443,7 @@ h1#pageTitle_h1 .fa {
 .table-bordered > thead > tr > th,
 .table-bordered > tbody > tr > th {
     background: rgba(var(--lms-primary-rgb), 0.12) !important;
-    color: var(--lms-primary-d) !important;
+    color: var(--lms-text) !important;
     font-weight: 600 !important;
     font-size: 12px !important;
     text-transform: uppercase !important;
@@ -603,7 +480,7 @@ h1#pageTitle_h1 .fa {
 .panel .table > thead > tr > th,
 .panel .table > tbody > tr:first-child > th {
     background: rgba(var(--lms-primary-rgb), 0.14) !important;
-    color: var(--lms-primary-d) !important;
+    color: var(--lms-text) !important;
     border-color: rgba(var(--lms-primary-rgb), 0.28) !important;
 }
 
@@ -641,33 +518,33 @@ html.lms-dark .panel .table > tbody > tr:first-child > th {
 
 .btn-primary {
     background: var(--lms-primary) !important;
-    color: #fff !important;
+    color: var(--lms-on-primary) !important;
 }
 .btn-primary:hover { background: var(--lms-primary-d) !important; }
 
 .btn-success {
-    background: #059669 !important;
-    color: #fff !important;
+    background: var(--lms-success) !important;
+    color: var(--lms-on-success) !important;
 }
-.btn-success:hover { background: #047857 !important; }
+.btn-success:hover { filter: brightness(1.08) !important; }
 
 .btn-danger {
-    background: #dc2626 !important;
-    color: #fff !important;
+    background: var(--lms-danger) !important;
+    color: var(--lms-on-danger) !important;
 }
-.btn-danger:hover { background: #b91c1c !important; }
+.btn-danger:hover { filter: brightness(1.08) !important; }
 
 .btn-warning {
     background: var(--lms-primary) !important;
-    color: #fff !important;
+    color: var(--lms-on-primary) !important;
 }
 .btn-warning:hover { background: var(--lms-primary-d) !important; }
 
 .btn-info {
-    background: #0891b2 !important;
-    color: #fff !important;
+    background: var(--lms-info) !important;
+    color: var(--lms-on-info) !important;
 }
-.btn-info:hover { background: #0e7490 !important; }
+.btn-info:hover { filter: brightness(1.08) !important; }
 
 .btn-default {
     background: var(--lms-surface) !important;
@@ -721,11 +598,11 @@ select.form-control {
     font-weight: 500 !important;
     font-size: 11px !important;
 }
-.label-primary { background: var(--lms-primary) !important; color: #fff !important; }
-.label-success { background: #059669 !important; color: #fff !important; }
-.label-warning { background: var(--lms-primary) !important; background-color: var(--lms-primary) !important; color: #fff !important; }
-.label-danger  { background: #dc2626 !important; color: #fff !important; }
-.label-info    { background: #0891b2 !important; color: #fff !important; }
+.label-primary { background: var(--lms-primary) !important; color: var(--lms-on-primary) !important; }
+.label-success { background: var(--lms-success) !important; color: var(--lms-on-success) !important; }
+.label-warning { background: var(--lms-primary) !important; background-color: var(--lms-primary) !important; color: var(--lms-on-primary) !important; }
+.label-danger  { background: var(--lms-danger) !important; color: var(--lms-on-danger) !important; }
+.label-info    { background: var(--lms-info) !important; color: var(--lms-on-info) !important; }
 
 /* ============================================================
    ALERTS
@@ -736,10 +613,10 @@ select.form-control {
     padding: 12px 18px !important;
     font-size: 13px !important;
 }
-.alert-info    { background: rgba(8,145,178,.08) !important; color: #0e7490 !important; border-left: 4px solid #0891b2 !important; }
-.alert-success { background: rgba(5,150,105,.08) !important; color: #047857 !important; border-left: 4px solid #059669 !important; }
-.alert-warning { background: rgba(var(--lms-primary-rgb),.08) !important; color: var(--lms-primary-d) !important; border-left: 4px solid var(--lms-primary) !important; }
-.alert-danger  { background: rgba(220,38,38,.08) !important; color: #b91c1c !important; border-left: 4px solid #dc2626 !important; }
+.alert-info    { background: rgba(8,145,178,.10) !important; color: var(--lms-info-text) !important; border-left: 4px solid var(--lms-info) !important; }
+.alert-success { background: rgba(5,150,105,.10) !important; color: var(--lms-success-text) !important; border-left: 4px solid var(--lms-success) !important; }
+.alert-warning { background: rgba(var(--lms-primary-rgb),.08) !important; color: var(--lms-link) !important; border-left: 4px solid var(--lms-primary) !important; }
+.alert-danger  { background: rgba(220,38,38,.10) !important; color: var(--lms-danger) !important; border-left: 4px solid var(--lms-danger) !important; }
 
 /* ============================================================
    DROPDOWN MENUS
@@ -821,7 +698,7 @@ select.form-control {
 .pagination > .active > a:hover {
     background: var(--lms-primary) !important;
     border-color: var(--lms-primary) !important;
-    color: #fff !important;
+    color: var(--lms-on-primary) !important;
 }
 
 /* ============================================================
@@ -1087,4 +964,257 @@ html.lms-dark .breadcrumb {
 
 html.lms-theme-mono .box-header .col-lg-3 > h3.box-title {
     color: var(--lms-on-primary) !important;
+}
+
+/* ============================================================
+   POLISH LAYER
+   Motion and depth refinements layered on top of the rules above.
+   ============================================================ */
+
+/* ---------- Account dropdown ----------
+   cms-content.js strips Aspire's inline colours from these links and tags them
+   with .lms-account-link, so the stylesheet can finally own their colour in
+   both modes instead of JS repainting them on every mutation. */
+
+.lms-account-link,
+.lms-account-link i,
+.lms-account-link span {
+    color: var(--lms-text) !important;
+    opacity: 1 !important;
+}
+
+html.lms-dark .lms-account-link,
+html.lms-dark .lms-account-link i,
+html.lms-dark .lms-account-link span {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+.lms-account-link:hover,
+.lms-account-link:focus {
+    background: var(--lms-tint) !important;
+}
+
+/* ---------- Sidebar ---------- */
+
+.list-group-item {
+    border-radius: var(--lms-radius-sm) !important;
+    position: relative !important;
+}
+
+.list-group-item::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 0;
+    background: var(--lms-primary);
+    border-radius: 0 2px 2px 0;
+    transform: translateY(-50%);
+    transition: height var(--lms-dur) var(--lms-ease-out);
+    pointer-events: none;
+}
+
+.list-group-item:hover::after {
+    height: 60%;
+}
+
+.list-group-item.active::after,
+.list-group-item:not(.collapsed)[data-toggle="collapse"]::after {
+    height: 100%;
+}
+
+/* The caret should rotate with the section rather than swap between two icons. */
+.list-group-item[data-toggle="collapse"] .fa-caret-down,
+.list-group-item[data-toggle="collapse"] .fa-caret-right {
+    transition: transform var(--lms-dur) var(--lms-ease-out);
+}
+
+.list-group-item[data-toggle="collapse"].collapsed .fa-caret-down {
+    transform: rotate(-90deg);
+}
+
+/* Bootstrap animates the collapse height itself; easing it to match the rest of
+   the UI is the only change needed. */
+.list-group-subMenu.collapsing {
+    transition: height var(--lms-dur-slow) var(--lms-ease) !important;
+}
+
+/* ---------- Panels and cards ---------- */
+
+.panel,
+.card {
+    border-radius: var(--lms-radius) !important;
+}
+
+.panel:hover {
+    box-shadow: var(--lms-shadow-md) !important;
+}
+
+.card {
+    overflow: hidden !important;
+}
+
+.card-header {
+    cursor: pointer !important;
+}
+
+.card-header:hover {
+    background: var(--lms-tint) !important;
+}
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    border-radius: var(--lms-radius-sm) !important;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:active {
+    transform: translateY(0) scale(.98);
+    transition-duration: var(--lms-dur-fast) !important;
+}
+
+.btn[disabled],
+.btn.disabled {
+    transform: none !important;
+    opacity: .55 !important;
+    cursor: not-allowed !important;
+}
+
+/* ---------- Dropdowns ---------- */
+
+.dropdown-menu {
+    border-radius: var(--lms-radius) !important;
+    box-shadow: var(--lms-shadow-lg) !important;
+    padding: 6px !important;
+}
+
+.open > .dropdown-menu {
+    animation: lms-menu-in var(--lms-dur) var(--lms-ease-out);
+}
+
+@keyframes lms-menu-in {
+    from { opacity: 0; transform: translateY(-4px) scale(.98); }
+    to   { opacity: 1; transform: none; }
+}
+
+.dropdown-menu > li > a {
+    border-radius: var(--lms-radius-sm) !important;
+}
+
+.dropdown-menu > li > a:hover {
+    background: var(--lms-tint) !important;
+}
+
+/* ---------- Tables ---------- */
+
+.table > tbody > tr {
+    transition: background-color var(--lms-dur-fast) var(--lms-ease) !important;
+}
+
+.table > tbody > tr:hover {
+    background-color: var(--lms-tint) !important;
+}
+
+/* ---------- Modals ---------- */
+
+.modal-content {
+    border-radius: var(--lms-radius-lg) !important;
+    box-shadow: var(--lms-shadow-lg) !important;
+}
+
+.modal.fade .modal-dialog {
+    transition: transform var(--lms-dur-slow) var(--lms-ease-out),
+                opacity var(--lms-dur-slow) var(--lms-ease-out) !important;
+    transform: translateY(-12px) scale(.98) !important;
+    opacity: 0;
+}
+
+.modal.in .modal-dialog {
+    transform: none !important;
+    opacity: 1;
+}
+
+.modal-backdrop.fade {
+    transition: opacity var(--lms-dur) var(--lms-ease) !important;
+}
+
+/* ---------- Form fields ---------- */
+
+.form-control {
+    border-radius: var(--lms-radius-sm) !important;
+}
+
+.form-control:focus {
+    box-shadow: var(--lms-ring) !important;
+}
+
+/* ---------- Scrollbars (WebKit) ---------- */
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(var(--lms-primary-rgb), .35);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    border-radius: var(--lms-radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(var(--lms-primary-rgb), .6);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* ---------- Content entrance ---------- */
+
+#content,
+.notification-container {
+    animation: lms-fade-in var(--lms-dur-slow) var(--lms-ease-out);
+}
+
+@keyframes lms-fade-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---------- Dark-mode panel headings ----------
+   Same reasoning as the LMS box header: --lms-primary inverts to a light tint
+   in dark mode, so filling every panel heading with it put a glaring band
+   across the top of each card. A tinted surface with a short accent rail keeps
+   the heading themed and distinct without the glare. */
+html.lms-dark .panel-heading,
+html.lms-dark .panel-default > .panel-heading {
+    background: var(--lms-tint) !important;
+    border-bottom: 1px solid var(--lms-border) !important;
+    color: var(--lms-text) !important;
+}
+
+html.lms-dark .panel-heading .panel-title,
+html.lms-dark .panel-title {
+    color: var(--lms-text) !important;
+    padding-left: 10px !important;
+    border-left: 3px solid var(--lms-primary) !important;
+}
+
+/* Card headers inside the notification panel get the same treatment. */
+html.lms-dark .card-header {
+    background: var(--lms-tint) !important;
+    border-bottom: 1px solid var(--lms-border) !important;
+    color: var(--lms-text) !important;
 }

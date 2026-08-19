@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Bahria LMS Redesign",
-  "version": "2.0",
-  "description": "Modern UI redesign for Bahria University LMS and CMS — clean layout, dark mode, and multiple color themes.",
+  "version": "2.1",
+  "description": "Modern UI redesign for Bahria University LMS and CMS — clean layout, dark mode, and 12 color themes.",
   "action": {
     "default_popup": "popup.html",
     "default_title": "LMS Redesign Settings",
@@ -21,15 +21,23 @@
   "content_scripts": [
     {
       "matches": ["*://lms.bahria.edu.pk/*"],
-      "css": ["css/mystyle.css"],
-      "js": ["js/content.js"],
-      "run_at": "document_start"
+      "css": ["css/theme.css", "css/mystyle.css"],
+      "js": ["js/theme-core.js", "js/content.js"],
+      "run_at": "document_start",
+      "all_frames": false
     },
     {
       "matches": ["*://cms.bahria.edu.pk/*"],
-      "css": ["css/cms-style.css"],
-      "js": ["js/cms-content.js"],
-      "run_at": "document_start"
+      "css": ["css/theme.css", "css/cms-style.css"],
+      "js": ["js/theme-core.js", "js/cms-content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*.woff2"],
+      "matches": ["*://lms.bahria.edu.pk/*", "*://cms.bahria.edu.pk/*"]
     }
   ]
 }

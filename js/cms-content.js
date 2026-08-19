@@ -1,80 +1,95 @@
-// Apply dark mode and theme classes as early as possible to avoid flash
+/* ============================================================
+   CMS content script  (cms.bahria.edu.pk - Aspire / Bootstrap 3)
+   Theme/dark-mode state is handled by js/theme-core.js, which the
+   manifest loads first.
+   ============================================================ */
 (function () {
-  chrome.storage.sync.get(['darkMode', 'lmsTheme'], (result) => {
-    if (result.darkMode) {
-      document.documentElement.classList.add('lms-dark');
-    }
-    const theme = result.lmsTheme || 'blue';
-    if (theme !== 'blue') {
-      document.documentElement.classList.add('lms-theme-' + theme);
-    }
-    applyCmsAvatarDropdownTextColor();
-  });
-})();
+  'use strict';
 
-function applyCmsAvatarDropdownTextColor() {
-  const isDark =
-    document.documentElement.classList.contains('lms-dark') ||
-    (document.body && document.body.classList.contains('lms-dark'));
+  var Theme = window.LmsTheme;
 
-  const selectors = [
+  /* ============================================================
+     Account dropdown contrast
+
+     Aspire sets the link colours on these items with inline styles, which
+     no stylesheet can beat. Rather than repainting them on every mutation
+     (the old approach, and the reason theme switches stuttered here), we
+     tag them once with a marker class and let CSS own the colours from
+     there. The class survives dark-mode toggles, so a toggle costs nothing.
+     ============================================================ */
+
+  var DROPDOWN_SELECTORS = [
     '#ProfileInfo_hlProfile',
     '#ProfileInfo_hlLogoff',
     '#ProfileInfo_hlChangePassword',
     '#AccountsNavbar .dropdown-menu[role="menu"] > li > a'
-  ];
+  ].join(', ');
 
-  selectors.forEach((selector) => {
-    document.querySelectorAll(selector).forEach((el) => {
-      if (isDark) {
-        el.style.setProperty('color', '#ffffff', 'important');
-        el.style.setProperty('opacity', '1', 'important');
-      } else {
-        el.style.removeProperty('color');
-        el.style.removeProperty('opacity');
+  function tagAccountDropdown() {
+    document.querySelectorAll(DROPDOWN_SELECTORS).forEach(function (el) {
+      if (el.dataset.lmsAccountLink === '1') return;
+
+      el.dataset.lmsAccountLink = '1';
+      el.classList.add('lms-account-link');
+
+      // Strip Aspire's inline colour so the stylesheet can take over. Inline
+      // styles outrank even !important rules, so this has to happen in JS.
+      el.style.removeProperty('color');
+      el.style.removeProperty('opacity');
+
+      el.querySelectorAll('i, span').forEach(function (child) {
+        child.style.removeProperty('color');
+        child.style.removeProperty('opacity');
+      });
+    });
+  }
+
+  /* ============================================================
+     Sidebar submenu height
+
+     Bootstrap 3 collapses animate max-height from a value jQuery measures
+     once. When our type scale changes the measured height, the submenu
+     either clips or leaves a gap mid-animation. Clearing the inline height
+     after the transition settles lets it size to content.
+     ============================================================ */
+
+  function relaxCollapsedSubmenus() {
+    document.querySelectorAll('.list-group-subMenu.collapse.in').forEach(function (el) {
+      if (el.style.height && el.style.height !== 'auto') {
+        el.style.height = '';
       }
     });
-  });
-
-  document
-    .querySelectorAll('#AccountsNavbar .dropdown-menu[role="menu"] > li > a i, #AccountsNavbar .dropdown-menu[role="menu"] > li > a span')
-    .forEach((el) => {
-      if (isDark) {
-        el.style.setProperty('color', '#ffffff', 'important');
-        el.style.setProperty('opacity', '1', 'important');
-      } else {
-        el.style.removeProperty('color');
-        el.style.removeProperty('opacity');
-      }
-    });
-}
-
-const cmsDropdownObserver = new MutationObserver(() => {
-  applyCmsAvatarDropdownTextColor();
-});
-
-if (document.documentElement) {
-  cmsDropdownObserver.observe(document.documentElement, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['class']
-  });
-}
-
-// Listen for messages from popup
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === 'toggleDark') {
-    document.documentElement.classList.toggle('lms-dark', msg.enabled);
-    applyCmsAvatarDropdownTextColor();
   }
-  if (msg.type === 'setTheme') {
-    Array.from(document.documentElement.classList)
-      .filter((cls) => cls.startsWith('lms-theme-'))
-      .forEach((cls) => document.documentElement.classList.remove(cls));
-    if (msg.theme && msg.theme !== 'blue') {
-      document.documentElement.classList.add('lms-theme-' + msg.theme);
-    }
-    applyCmsAvatarDropdownTextColor();
+
+  /* ============================================================
+     Wiring
+     ============================================================ */
+
+  function refresh() {
+    tagAccountDropdown();
+    relaxCollapsedSubmenus();
   }
-});
+
+  Theme.onChange(refresh);
+
+  function boot() {
+    refresh();
+
+    // ASP.NET partial postbacks replace whole panels, so newly injected links
+    // need tagging too. The observer suspends itself around our writes.
+    Theme.selfHealingObserver(
+      document.body,
+      { childList: true, subtree: true },
+      refresh
+    );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  document.addEventListener('shown.bs.collapse', relaxCollapsedSubmenus, true);
+  window.addEventListener('load', refresh);
+})();

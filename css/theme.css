@@ -1,0 +1,602 @@
+/* ============================================================
+   Bahria LMS/CMS Redesign — Shared Theme Foundation
+   ------------------------------------------------------------
+   Loaded before mystyle.css (LMS) and cms-style.css (CMS) so both
+   sites resolve their colours from one source of truth.
+
+   Contains:
+     1. Bundled Inter webfont (@font-face)
+     2. Design tokens (:root) + dark-mode tokens
+     3. The 12 colour-theme overrides
+     4. Motion primitives (preload guard, reduced-motion)
+   ============================================================ */
+
+/* ---------- Bundled Inter (no network request, CSP-safe) ---------- */
+@font-face {
+    font-family: 'LMS Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('../fonts/inter-latin.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+                   U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+                   U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+    font-family: 'LMS Inter';
+    font-style: normal;
+    font-weight: 300 700;
+    font-display: swap;
+    src: url('../fonts/inter-latin-ext.woff2') format('woff2');
+    unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+                   U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF,
+                   U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------- CSS Variables (Default = Blue) ---------- */
+:root {
+    --lms-primary: #132a5b;
+    --lms-primary-d: #0f2148;
+    --lms-accent: #2d4f8f;
+    --lms-primary-rgb: 19, 42, 91;
+    --lms-on-primary: #ffffff;
+    --lms-on-primary-muted: rgba(255,255,255,.9);
+    --lms-bg: #f1f5f9;
+    --lms-surface: #ffffff;
+    --lms-sidebar-bg: #111f3d;
+    --lms-sidebar-hover: #1b2f56;
+    --lms-sidebar-active: #173874;
+    --lms-text: #1e293b;
+    --lms-text-muted: #64748b;
+    --lms-border: #e2e8f0;
+    --lms-header-bg: #0f1d38;
+    --lms-header-text: #f8fafc;
+    --lms-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.08), 0 2px 4px -2px rgba(0,0,0,.06);
+
+    /* Shape */
+    --lms-radius-sm: 6px;
+    --lms-radius: 10px;
+    --lms-radius-lg: 14px;
+    --lms-radius-pill: 999px;
+
+    /* Motion — one easing curve everywhere keeps the UI feeling coherent */
+    --lms-ease: cubic-bezier(.4, 0, .2, 1);
+    --lms-ease-out: cubic-bezier(.16, 1, .3, 1);
+    --lms-dur-fast: 120ms;
+    --lms-dur: 180ms;
+    --lms-dur-slow: 260ms;
+    --lms-transition: var(--lms-dur) var(--lms-ease);
+
+    /* Elevation */
+    --lms-shadow-lg: 0 10px 25px -5px rgba(15, 23, 42, .12), 0 8px 10px -6px rgba(15, 23, 42, .08);
+    --lms-ring: 0 0 0 3px rgba(var(--lms-primary-rgb), .28);
+
+    /* Tints derived from the active theme colour */
+    --lms-tint: rgba(var(--lms-primary-rgb), .08);
+    --lms-tint-strong: rgba(var(--lms-primary-rgb), .16);
+
+    --lms-font: 'LMS Inter', 'Inter', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+    /* Link/accent text colour. Defaults to the theme primary, but a few dark
+       themes override it below because their primary is a fill colour that is
+       too dark to read as text on a dark surface. */
+    --lms-link: var(--lms-primary);
+
+    /* Semantic warning red, tuned per mode so the LMS's inline "text-red"
+       notices stay legible instead of vibrating against a dark background. */
+    --lms-danger-text: #b91c1c;
+
+    /* Native widgets (scrollbars, date pickers, autofill) follow the theme */
+    color-scheme: light;
+}
+
+/* ---------- Dark Mode Variables ---------- */
+html.lms-dark {
+    --lms-primary: #5f88cd;
+    --lms-primary-d: #7fa0d8;
+    --lms-accent: #7f99c8;
+    --lms-primary-rgb: 95, 136, 205;
+    --lms-on-primary: #ffffff;
+    --lms-on-primary-muted: rgba(255,255,255,.9);
+    --lms-bg: #0f172a;
+    --lms-surface: #1e293b;
+    --lms-sidebar-bg: #0f172a;
+    --lms-sidebar-hover: #1e293b;
+    --lms-sidebar-active: #5f88cd;
+    --lms-text: #e2e8f0;
+    --lms-text-muted: #94a3b8;
+    --lms-border: #334155;
+    --lms-header-bg: #0f172a;
+    --lms-header-text: #f1f5f9;
+    --lms-shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+    --lms-shadow-md: 0 4px 6px -1px rgba(0,0,0,.45), 0 2px 4px -2px rgba(0,0,0,.3);
+    --lms-shadow-lg: 0 10px 25px -5px rgba(0,0,0,.55), 0 8px 10px -6px rgba(0,0,0,.4);
+    --lms-tint: rgba(var(--lms-primary-rgb), .14);
+    --lms-danger-text: #f87171;
+    --lms-tint-strong: rgba(var(--lms-primary-rgb), .24);
+    color-scheme: dark;
+}
+
+/* ============================================================
+   THEME OVERRIDES
+   ============================================================ */
+
+/* --- Crimson --- */
+html.lms-theme-crimson {
+    --lms-primary: #991b1b;
+    --lms-primary-d: #7f1d1d;
+    --lms-accent: #9f1239;
+    --lms-primary-rgb: 153, 27, 27;
+    --lms-sidebar-active: #991b1b;
+    --lms-header-bg: #450a0a;
+    --lms-sidebar-bg: #450a0a;
+    --lms-sidebar-hover: #7f1d1d;
+}
+html.lms-dark.lms-theme-crimson {
+    --lms-primary: #b91c1c;
+    --lms-primary-d: #dc2626;
+    --lms-accent: #be1239;
+    --lms-primary-rgb: 185, 28, 28;
+    --lms-sidebar-active: #b91c1c;
+    --lms-header-bg: #450a0a;
+    --lms-sidebar-bg: #450a0a;
+    --lms-sidebar-hover: #7f1d1d;
+    --lms-bg: #130404;
+    --lms-surface: #200808;
+    --lms-border: #3d1010;
+}
+
+/* --- Forest --- */
+html.lms-theme-forest {
+    --lms-primary: #16a34a;
+    --lms-primary-d: #15803d;
+    --lms-accent: #059669;
+    --lms-primary-rgb: 22, 163, 74;
+    --lms-sidebar-active: #16a34a;
+    --lms-header-bg: #14532d;
+    --lms-sidebar-bg: #14532d;
+    --lms-sidebar-hover: #15803d;
+}
+html.lms-dark.lms-theme-forest {
+    --lms-primary: #22c55e;
+    --lms-primary-d: #4ade80;
+    --lms-accent: #34d399;
+    --lms-primary-rgb: 34, 197, 94;
+    --lms-sidebar-active: #22c55e;
+    --lms-header-bg: #14532d;
+    --lms-sidebar-bg: #14532d;
+    --lms-sidebar-hover: #15803d;
+    --lms-bg: #071a0e;
+    --lms-surface: #112b18;
+    --lms-border: #1e4a2c;
+}
+
+/* --- Baby Pink --- */
+html.lms-theme-pink {
+    --lms-primary: #ec4899;
+    --lms-primary-d: #db2777;
+    --lms-accent: #f472b6;
+    --lms-primary-rgb: 236, 72, 153;
+    --lms-sidebar-active: #ec4899;
+    --lms-header-bg: #831843;
+    --lms-sidebar-bg: #831843;
+    --lms-sidebar-hover: #9d174d;
+}
+html.lms-dark.lms-theme-pink {
+    --lms-primary: #f472b6;
+    --lms-primary-d: #f9a8d4;
+    --lms-accent: #fb7bac;
+    --lms-primary-rgb: 244, 114, 182;
+    --lms-sidebar-active: #f472b6;
+    --lms-header-bg: #831843;
+    --lms-sidebar-bg: #831843;
+    --lms-sidebar-hover: #9d174d;
+    --lms-bg: #1a0812;
+    --lms-surface: #2d1020;
+    --lms-border: #4d1f38;
+}
+
+/* --- Monochrome --- */
+html.lms-theme-mono {
+    --lms-primary: #111111;
+    --lms-primary-d: #000000;
+    --lms-accent: #333333;
+    --lms-primary-rgb: 17, 17, 17;
+    --lms-sidebar-active: #111111;
+    --lms-header-bg: #111111;
+    --lms-sidebar-bg: #111111;
+    --lms-sidebar-hover: #222222;
+}
+html.lms-dark.lms-theme-mono {
+    --lms-primary: #f0f0f0;
+    --lms-primary-d: #ffffff;
+    --lms-accent: #cccccc;
+    --lms-primary-rgb: 240, 240, 240;
+    --lms-on-primary: #111111;
+    --lms-on-primary-muted: rgba(17,17,17,.9);
+    --lms-sidebar-active: #f0f0f0;
+    --lms-header-bg: #111111;
+    --lms-sidebar-bg: #111111;
+    --lms-sidebar-hover: #222222;
+    --lms-bg: #0a0a0a;
+    --lms-surface: #141414;
+    --lms-border: #2a2a2a;
+}
+
+/* --- Purple --- */
+html.lms-theme-purple {
+    --lms-primary: #7c3aed;
+    --lms-primary-d: #6d28d9;
+    --lms-accent: #8b5cf6;
+    --lms-primary-rgb: 124, 58, 237;
+    --lms-sidebar-active: #7c3aed;
+    --lms-header-bg: #3b0764;
+    --lms-sidebar-bg: #3b0764;
+    --lms-sidebar-hover: #4c1d95;
+}
+html.lms-dark.lms-theme-purple {
+    --lms-primary: #8b5cf6;
+    --lms-primary-d: #a78bfa;
+    --lms-accent: #a78bfa;
+    --lms-primary-rgb: 139, 92, 246;
+    --lms-sidebar-active: #8b5cf6;
+    --lms-header-bg: #3b0764;
+    --lms-sidebar-bg: #3b0764;
+    --lms-sidebar-hover: #4c1d95;
+    --lms-bg: #0e0820;
+    --lms-surface: #1a1235;
+    --lms-border: #2e1f5e;
+}
+
+/* --- Teal --- */
+html.lms-theme-teal {
+    --lms-primary: #0d9488;
+    --lms-primary-d: #0f766e;
+    --lms-accent: #14b8a6;
+    --lms-primary-rgb: 13, 148, 136;
+    --lms-sidebar-active: #0d9488;
+    --lms-header-bg: #134e4a;
+    --lms-sidebar-bg: #134e4a;
+    --lms-sidebar-hover: #0f766e;
+}
+html.lms-dark.lms-theme-teal {
+    --lms-primary: #14b8a6;
+    --lms-primary-d: #2dd4bf;
+    --lms-accent: #2dd4bf;
+    --lms-primary-rgb: 20, 184, 166;
+    --lms-sidebar-active: #14b8a6;
+    --lms-header-bg: #134e4a;
+    --lms-sidebar-bg: #134e4a;
+    --lms-sidebar-hover: #0f766e;
+    --lms-bg: #05181a;
+    --lms-surface: #0d2b2d;
+    --lms-border: #1a4a4d;
+}
+
+/* --- Amber --- */
+html.lms-theme-amber {
+    --lms-primary: #d97706;
+    --lms-primary-d: #b45309;
+    --lms-accent: #f59e0b;
+    --lms-primary-rgb: 217, 119, 6;
+    --lms-sidebar-active: #d97706;
+    --lms-header-bg: #78350f;
+    --lms-sidebar-bg: #78350f;
+    --lms-sidebar-hover: #92400e;
+}
+html.lms-dark.lms-theme-amber {
+    --lms-primary: #f59e0b;
+    --lms-primary-d: #fbbf24;
+    --lms-accent: #fbbf24;
+    --lms-primary-rgb: 245, 158, 11;
+    --lms-sidebar-active: #f59e0b;
+    --lms-header-bg: #78350f;
+    --lms-sidebar-bg: #78350f;
+    --lms-sidebar-hover: #92400e;
+    --lms-bg: #1a0e02;
+    --lms-surface: #2d1e07;
+    --lms-border: #4d350f;
+}
+
+/* --- Ocean --- */
+html.lms-theme-ocean {
+    --lms-primary: #1d4ed8;
+    --lms-primary-d: #1e40af;
+    --lms-accent: #0891b2;
+    --lms-primary-rgb: 29, 78, 216;
+    --lms-sidebar-active: #1d4ed8;
+    --lms-header-bg: #1e3a8a;
+    --lms-sidebar-bg: #1e3a8a;
+    --lms-sidebar-hover: #1e40af;
+}
+html.lms-dark.lms-theme-ocean {
+    --lms-primary: #60a5fa;
+    --lms-primary-d: #93c5fd;
+    --lms-accent: #22d3ee;
+    --lms-primary-rgb: 96, 165, 250;
+    --lms-sidebar-active: #60a5fa;
+    --lms-header-bg: #0c234f;
+    --lms-sidebar-bg: #0c234f;
+    --lms-sidebar-hover: #1e3a8a;
+    --lms-bg: #071427;
+    --lms-surface: #10243e;
+    --lms-border: #1f3b61;
+}
+
+/* --- Sage --- */
+html.lms-theme-sage {
+    --lms-primary: #556b2f;
+    --lms-primary-d: #455825;
+    --lms-accent: #6f8f3d;
+    --lms-primary-rgb: 85, 107, 47;
+    --lms-sidebar-active: #556b2f;
+    --lms-header-bg: #3b4d24;
+    --lms-sidebar-bg: #3b4d24;
+    --lms-sidebar-hover: #4b6030;
+}
+html.lms-dark.lms-theme-sage {
+    --lms-primary: #9ab870;
+    --lms-primary-d: #adc58a;
+    --lms-accent: #88a960;
+    --lms-primary-rgb: 154, 184, 112;
+    --lms-sidebar-active: #9ab870;
+    --lms-header-bg: #2b3a1b;
+    --lms-sidebar-bg: #2b3a1b;
+    --lms-sidebar-hover: #3f5329;
+    --lms-bg: #0f160a;
+    --lms-surface: #1c2615;
+    --lms-border: #344426;
+}
+
+/* --- Rose --- */
+html.lms-theme-rose {
+    --lms-primary: #be185d;
+    --lms-primary-d: #9d174d;
+    --lms-accent: #e11d48;
+    --lms-primary-rgb: 190, 24, 93;
+    --lms-sidebar-active: #be185d;
+    --lms-header-bg: #881337;
+    --lms-sidebar-bg: #881337;
+    --lms-sidebar-hover: #9d174d;
+}
+html.lms-dark.lms-theme-rose {
+    --lms-primary: #fb7185;
+    --lms-primary-d: #fda4af;
+    --lms-accent: #f472b6;
+    --lms-primary-rgb: 251, 113, 133;
+    --lms-sidebar-active: #fb7185;
+    --lms-header-bg: #5e1130;
+    --lms-sidebar-bg: #5e1130;
+    --lms-sidebar-hover: #881337;
+    --lms-bg: #190913;
+    --lms-surface: #2a1020;
+    --lms-border: #4b1e37;
+}
+
+/* --- Dusk --- */
+html.lms-theme-dusk {
+    --lms-primary: #6366f1;
+    --lms-primary-d: #4f46e5;
+    --lms-accent: #475569;
+    --lms-primary-rgb: 99, 102, 241;
+    --lms-sidebar-active: #6366f1;
+    --lms-header-bg: #334155;
+    --lms-sidebar-bg: #334155;
+    --lms-sidebar-hover: #475569;
+}
+html.lms-dark.lms-theme-dusk {
+    --lms-primary: #a5b4fc;
+    --lms-primary-d: #c7d2fe;
+    --lms-accent: #94a3b8;
+    --lms-primary-rgb: 165, 180, 252;
+    --lms-sidebar-active: #a5b4fc;
+    --lms-header-bg: #1f2937;
+    --lms-sidebar-bg: #1f2937;
+    --lms-sidebar-hover: #334155;
+    --lms-bg: #0f1520;
+    --lms-surface: #1a2433;
+    --lms-border: #314055;
+}
+
+
+/* ============================================================
+   MOTION PRIMITIVES
+   ============================================================ */
+
+/* The theme classes land on <html> asynchronously (storage is async), and the
+   page keeps mutating while AdminLTE/Aspire boot. Without this guard every one
+   of those settling styles animates, which reads as a slow, flickering load.
+   theme-core.js drops `lms-preload` on the first frame after settings resolve. */
+html.lms-preload,
+html.lms-preload *,
+html.lms-preload *::before,
+html.lms-preload *::after {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* Paint the page background from the very first frame so a dark-mode user never
+   sees a white flash before the stylesheet's own rules have anything to style. */
+html.lms-dark {
+    background-color: var(--lms-bg);
+}
+
+/* Honour the OS "reduce motion" setting across both sites. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ============================================================
+   SHARED SMOOTHING
+   ============================================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+/* Firefox scrollbars (WebKit ones are styled in the per-site sheets). */
+html {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(var(--lms-primary-rgb), .45) transparent;
+}
+
+/* A single, visible focus ring for keyboard users on both sites. Mouse clicks
+   keep the original look because this only matches :focus-visible. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible,
+.btn:focus-visible {
+    outline: 2px solid var(--lms-primary) !important;
+    outline-offset: 2px !important;
+    box-shadow: var(--lms-ring) !important;
+}
+
+/* Kill the sticky :focus ring Bootstrap 3 leaves on clicked buttons. */
+.btn:focus:not(:focus-visible),
+a:focus:not(:focus-visible) {
+    outline: none !important;
+}
+
+/* Text selection picks up the theme colour instead of the browser default. */
+::selection {
+    background: rgba(var(--lms-primary-rgb), .25);
+    color: var(--lms-text);
+}
+
+/* ============================================================
+   DARK-MODE LINK CORRECTIONS
+   ------------------------------------------------------------
+   Blue, crimson and purple keep a deep primary in dark mode because it still
+   has to carry white button text. That same colour fails as link text on a
+   dark surface (2.9:1 - 4.2:1), so those three get a lighter --lms-link.
+   Every other theme's primary already clears 4.5:1 and inherits unchanged.
+   ============================================================ */
+
+/* Dark + no theme class = the default blue theme. */
+html.lms-dark:not([class*="lms-theme-"]) {
+    --lms-link: #93b4f0;   /* 6.99:1 on --lms-surface */
+}
+
+html.lms-dark.lms-theme-crimson {
+    --lms-link: #f87171;   /* 6.90:1 on --lms-surface */
+}
+
+html.lms-dark.lms-theme-purple {
+    --lms-link: #a78bfa;   /* 6.53:1 on --lms-surface */
+}
+
+/* ============================================================
+   FOREGROUND-ON-FILL CORRECTIONS
+   ------------------------------------------------------------
+   --lms-primary flips to a light tint in dark mode, but --lms-on-primary used
+   to stay #ffffff everywhere. That put white text on a near-white fill on every
+   panel heading, primary button, active tab and progress bar in dark mode
+   (1.1:1 - 4.2:1). The text colour now follows the fill's lightness.
+
+   Order matters: the light-theme list comes first so that html.lms-dark, at
+   equal specificity, wins for a page that is both dark and themed.
+   ============================================================ */
+
+/* Light themes whose primary is bright enough to need dark text on it. */
+html.lms-theme-forest,
+html.lms-theme-pink,
+html.lms-theme-teal,
+html.lms-theme-amber {
+    --lms-on-primary: #0b1220;
+    --lms-on-primary-muted: rgba(11, 18, 32, .78);
+
+    /* The same brightness that forces dark text on the fill also makes these
+       primaries too pale to read as link text on white (3.2:1 - 3.5:1). Their
+       existing --lms-primary-d step clears 4.5:1, so links use that. */
+    --lms-link: var(--lms-primary-d);
+}
+
+/* Every dark theme inverts primary to a light tint... */
+html.lms-dark {
+    --lms-on-primary: #0b1220;
+    --lms-on-primary-muted: rgba(11, 18, 32, .78);
+}
+
+/* ...except crimson, which stays a deep red even in dark mode. */
+html.lms-dark.lms-theme-crimson {
+    --lms-on-primary: #ffffff;
+    --lms-on-primary-muted: rgba(255, 255, 255, .9);
+}
+
+/* Two primaries sat in the dead zone where neither white nor dark text reached
+   4.5:1 (light dusk 4.47, dark purple 4.42). One step along their own ramp
+   clears it without changing the hue. */
+html.lms-theme-dusk:not(.lms-dark) {
+    --lms-primary: #4f46e5;
+    --lms-primary-rgb: 79, 70, 229;
+}
+
+html.lms-dark.lms-theme-purple {
+    --lms-primary: #a78bfa;
+    --lms-primary-rgb: 167, 139, 250;
+}
+
+/* Light pink's primary-d (#db2777) sits at 4.60:1 on white - fine alone, but it
+   falls to 4.17:1 once an alert tint darkens the background behind it. */
+html.lms-theme-pink:not(.lms-dark) {
+    --lms-primary-d: #be185d;
+}
+
+/* ============================================================
+   SEMANTIC PALETTE
+   ------------------------------------------------------------
+   Success/info/warning/danger were fixed hex values that ignored dark mode:
+   white on #059669 is 3.8:1, and the matching alert text stayed dark on a dark
+   background. Each now has a fill, a foreground for that fill, and a text
+   variant for tinted backgrounds - all mode-aware.
+   ============================================================ */
+:root {
+    --lms-success: #047857;
+    --lms-info: #0e7490;
+    --lms-warning: #b45309;
+    --lms-danger: #b91c1c;
+
+    --lms-on-success: #ffffff;
+    --lms-on-info: #ffffff;
+    --lms-on-warning: #ffffff;
+    --lms-on-danger: #ffffff;
+
+    /* Text colours for use on the page background, not on a solid fill. */
+    --lms-success-text: #047857;
+    --lms-info-text: #0e7490;
+    --lms-warning-text: #b45309;
+
+    --lms-text-muted: #5b6878;
+}
+
+html.lms-dark {
+    --lms-success: #34d399;
+    --lms-info: #38bdf8;
+    --lms-warning: #fbbf24;
+    --lms-danger: #f87171;
+
+    --lms-on-success: #05221a;
+    --lms-on-info: #04202b;
+    --lms-on-warning: #2a1a02;
+    --lms-on-danger: #2a0808;
+
+    --lms-success-text: #34d399;
+    --lms-info-text: #38bdf8;
+    --lms-warning-text: #fbbf24;
+
+    --lms-text-muted: #a3b0c2;
+}
