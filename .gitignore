@@ -1,1 +1,7 @@
 temp/
+.claude/
+CLAUDE.md
+.mcp.json
+.vscode/
+.DS_Store
+Thumbs.db
