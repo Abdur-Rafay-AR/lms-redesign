@@ -1,5 +1,9 @@
 # Bahria LMS Redesign — Chrome Extension
 
+[![Manifest V3](https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white)](manifest.json)
+[![Version](https://img.shields.io/badge/version-2.1-success)](manifest.json)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A Chrome extension that gives Bahria University's LMS and CMS a modern UI overhaul — clean layout, dark mode, and 12 color themes.
 
 **Supports:**
@@ -145,3 +149,12 @@ No network access, no tab history, no cookies.
 - LMS uses Font Awesome 4 (`FontAwesome`). CMS uses Font Awesome 5 (`Font Awesome 5 Free`,
   weight 900). The stylesheets handle each separately to preserve icons.
 - If a theme or dark mode change doesn't apply, reload the page once after first install.
+
+---
+
+## License
+
+[MIT](LICENSE) © Abdur-Rafay-AR
+
+> Not affiliated with or endorsed by Bahria University. This extension only restyles pages
+> you are already logged into; it sends no data anywhere.
