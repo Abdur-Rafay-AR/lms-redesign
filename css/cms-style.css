@@ -1292,10 +1292,11 @@ aside#sideBar .list-group-item,
     line-height: 1.4 !important;
 }
 
-/* Nested submenu items sit one step in from their parent. */
+/* Nested submenu items line up with their parent's label text
+   (18px row padding + 22px icon + 10px gap, see the menu-icon rules below). */
 aside#sideBar .list-group-subMenu .list-group-item,
 #sideMenuList .list-group-subMenu > a.list-group-item {
-    padding-left: 34px !important;
+    padding-left: 50px !important;
     font-size: 13px !important;
 }
 
@@ -1335,6 +1336,46 @@ aside#sideBar div#sideMenuList a.list-group-item {
         background-color var(--lms-transition),
         color var(--lms-transition),
         border-color var(--lms-transition) !important;
+}
+
+/* Menu icons. Each top-level item is
+     <a class="list-group-item"><span class="menu-icon fas fa-…"></span>Label
+       <i class="fa fa-caret-down pull-right"></i><i class="fa fa-caret-right"></i></a>
+   Aspire positions the icon and the caret-right out of flow, relying on its
+   own left padding to keep the label clear; with our padding the icon and a
+   stray caret landed on top of the first letters. Lay the row out ourselves:
+   icon in a fixed column, label, one caret pushed to the right edge. */
+aside#sideBar div#sideMenuList a.list-group-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+}
+
+aside#sideBar div#sideMenuList a.list-group-item > .menu-icon {
+    position: static !important;
+    float: none !important;
+    flex: 0 0 22px !important;
+    width: 22px !important;
+    height: 22px !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+}
+
+/* The caret-down rotates for the collapsed state (see "Sidebar" above), so
+   the second caret is redundant and is the one that strayed over the icon. */
+aside#sideBar div#sideMenuList a.list-group-item > .fa-caret-right {
+    display: none !important;
+}
+
+aside#sideBar div#sideMenuList a.list-group-item > .fa-caret-down {
+    position: static !important;
+    float: none !important;
+    margin: 0 0 0 auto !important;
+    flex: 0 0 auto !important;
 }
 
 /* ---------- Login pages ---------- */
