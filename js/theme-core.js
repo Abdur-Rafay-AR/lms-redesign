@@ -21,7 +21,6 @@
   var ROOT = document.documentElement;
   var MIRROR_KEY = 'lmsRedesign:theme';
   var GPU_KEY = 'lmsRedesign:gpu';
-  var DEFAULT_THEME = Settings.DEFAULT_THEME;
 
   // Set from chrome.storage.local, which resolves separately from sync.
   var upload = { image: '', tone: 'light' };
@@ -51,7 +50,8 @@
       var raw = window.localStorage.getItem(MIRROR_KEY);
       if (!raw) return null;
       var parsed = JSON.parse(raw);
-      // Mirrors written by v2.1 used `theme` instead of `lmsTheme`.
+      // Mirrors written by v2.1 used `theme` instead of `lmsTheme`; normalise
+      // turns either into the matching colours.
       if (parsed.theme && !parsed.lmsTheme) parsed.lmsTheme = parsed.theme;
       return Settings.normalise(parsed);
     } catch (e) {
@@ -127,16 +127,26 @@
     return state.animeMode;
   }
 
-  function applyTheme(theme) {
-    // Snapshot first: classList is live, removing while iterating skips entries.
-    Array.prototype.slice
-      .call(ROOT.classList)
-      .filter(function (cls) { return cls.indexOf('lms-theme-') === 0; })
-      .forEach(function (cls) { ROOT.classList.remove(cls); });
+  /* The palette is generated from the picked colours (see palette() in
+     settings.js) and written as custom properties on <html>. An inline
+     declaration beats every theme token in the stylesheets, and setting it
+     through the CSSOM is not blocked by the page's style-src CSP the way an
+     injected <style> element would be.
 
-    if (theme !== DEFAULT_THEME) {
-      ROOT.classList.add('lms-theme-' + theme);
-    }
+     --manga-tone and --manga-scrim are left to css/theme.css: they derive
+     from these tokens there, and anime.css overrides the scrim per wallpaper
+     tone, which an inline value would beat. */
+  var lastPalette = '';
+
+  function applyPalette(dark) {
+    var tokens = Settings.palette(state.themeColor, state.accentColor, dark);
+    var key = JSON.stringify(tokens);
+    if (key === lastPalette) return;
+    lastPalette = key;
+
+    Object.keys(tokens).forEach(function (name) {
+      ROOT.style.setProperty(name, tokens[name]);
+    });
   }
 
   /* The built-in URL depends on the extension id and an uploaded one is a
@@ -188,8 +198,9 @@
 
   function render() {
     var manga = isMangaActive();
-    ROOT.classList.toggle('lms-dark', isDark());
-    applyTheme(state.lmsTheme);
+    var dark = isDark();
+    ROOT.classList.toggle('lms-dark', dark);
+    applyPalette(dark);
     ROOT.classList.toggle('lms-manga', manga);
     applyWallpaper(manga);
   }
@@ -252,7 +263,7 @@
     if (state.wallpaper === 'custom') render();
   });
 
-  chrome.storage.sync.get(Settings.SYNC_KEYS, function (result) {
+  chrome.storage.sync.get(Settings.READ_KEYS, function (result) {
     if (chrome.runtime.lastError) {
       if (!mirrored) render();
       clearPreload();
@@ -313,10 +324,6 @@
     }
   });
 
-  function currentTheme() {
-    return state.lmsTheme;
-  }
-
   /* ---------- helpers for the per-site scripts --------------------------- */
 
   /* Coalesces bursts of calls into one per animation frame. The LMS/CMS pages
@@ -353,11 +360,9 @@
   }
 
   window.LmsTheme = {
-    DEFAULT_THEME: DEFAULT_THEME,
     onChange: function (fn) { listeners.push(fn); },
     isDark: isDark,
     isManga: isMangaActive,
-    currentTheme: currentTheme,
     rafDebounce: rafDebounce,
     selfHealingObserver: selfHealingObserver
   };

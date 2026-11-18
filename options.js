@@ -33,11 +33,11 @@
   /* ---------- painting ---------------------------------------------------- */
 
   function paint() {
-    var theme = Settings.THEMES.filter(function (t) { return t.id === state.lmsTheme; })[0] || Settings.THEMES[0];
+    var colors = Settings.palette(state.themeColor, state.accentColor, false);
     var root = document.documentElement.style;
-    root.setProperty('--accent', theme.from);
-    root.setProperty('--accent-2', theme.to);
-    root.setProperty('--accent-rgb', theme.rgb);
+    root.setProperty('--accent', colors['--lms-primary']);
+    root.setProperty('--accent-2', colors['--manga-pop']);
+    root.setProperty('--accent-rgb', colors['--lms-primary-rgb']);
 
     body.classList.toggle('dark', state.darkAuto ? systemDark.matches : state.darkMode);
 
@@ -54,7 +54,7 @@
   }
 
   function load() {
-    chrome.storage.sync.get(Settings.SYNC_KEYS, function (sync) {
+    chrome.storage.sync.get(Settings.READ_KEYS, function (sync) {
       state = Settings.normalise(sync);
       chrome.storage.local.get(['wallpaperImage'], function (local) {
         uploadImage = local && typeof local.wallpaperImage === 'string' ? local.wallpaperImage : '';
@@ -117,7 +117,7 @@
   /* ---------- backup ------------------------------------------------------ */
 
   document.getElementById('exportBtn').addEventListener('click', function () {
-    chrome.storage.sync.get(Settings.SYNC_KEYS, function (sync) {
+    chrome.storage.sync.get(Settings.READ_KEYS, function (sync) {
       chrome.storage.local.get(Settings.LOCAL_KEYS, function (local) {
         var backup = {
           app: BACKUP_APP,
@@ -210,7 +210,7 @@
   document.getElementById('resetBtn').addEventListener('click', function () {
     if (!window.confirm('Reset theme, colour mode and wallpaper settings to their defaults? Your uploaded image is kept.')) return;
 
-    chrome.storage.sync.remove(Settings.SYNC_KEYS, function () {
+    chrome.storage.sync.remove(Settings.READ_KEYS, function () {
       note(backupNote, 'Settings reset to defaults.', false);
       load();
     });

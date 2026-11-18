@@ -1,10 +1,10 @@
 # Bahria LMS Redesign — Edge / Chrome Extension
 
 [![Manifest V3](https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white)](manifest.json)
-[![Version](https://img.shields.io/badge/version-3.8-success)](manifest.json)
+[![Version](https://img.shields.io/badge/version-3.9-success)](manifest.json)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-A Microsoft Edge / Chrome extension (Windows, Linux and macOS) that gives Bahria University's LMS and CMS a modern UI overhaul — anime-style layout, glass panels over your own wallpaper, dark mode, and 13 full-palette themes.
+A Microsoft Edge / Chrome extension (Windows, Linux and macOS) that gives Bahria University's LMS and CMS a modern UI overhaul — anime-style layout, glass panels over your own wallpaper, dark mode, and a colour wheel that builds a full palette from any colour you pick.
 
 **Supports:**
 - `lms.bahria.edu.pk` — Student/faculty portal (AdminLTE 2 + Bootstrap 3)
@@ -42,7 +42,7 @@ A Microsoft Edge / Chrome extension (Windows, Linux and macOS) that gives Bahria
 ## Usage
 
 Click the extension icon in the toolbar to open the settings popup. The popup takes on
-whichever theme is active, so it doubles as a preview.
+whichever colours are active, so it doubles as a preview.
 
 ### Colour Mode
 Choose **Light**, **Dark** or **Auto**. Auto follows your operating system's light/dark
@@ -106,31 +106,41 @@ tone (light or dark) so the readability wash matches it.
 Panels that contain a modal or the LMS chat popup stay solid, because `backdrop-filter`
 would trap those fixed-position elements inside the panel.
 
-### Themes
-Thirteen themes, each a complete palette in the style of Verdant: a deep nav and page-title
-colour, a main colour for panel headers and buttons, a bright highlight for the active
-sidebar item and accent stripes, and tinted page and text colours. Every theme has its own
-light and dark version. Click a tile to apply it; arrow keys move through the grid.
+### Colour
+Pick your own colours on the colour wheel. There are two:
 
-| Theme | Look |
-|---|---|
-| Midnight (default) | Navy ink, sky-blue highlights |
-| Ember | Deep red with orange sparks |
-| Pine | True green with sunlight yellow |
-| Blossom | Raspberry and petal pink |
-| Graphite | Pure ink and paper |
-| Amethyst | Violet with orchid highlights |
-| Lagoon | Deep teal and seafoam |
-| Sunstone | Burnt amber and gold |
-| Tide | Harbour blue and spray |
-| Lichen | Weathered olive and pale moss |
-| Garnet | Dark garnet and coral pink |
-| Twilight | Indigo evening, lavender glow |
-| Verdant | Moss and emerald over stone |
+- **Main**: buttons, links and panel headers. Its hue also tints the sidebar, the header,
+  the page background and the text.
+- **Highlight**: the active sidebar item, the accent stripes and badges. Leave it on
+  **Auto** to get a brighter colour a little round the wheel from the main one (sky blue
+  beside navy, amber beside red), or pick it yourself.
 
-Every theme was checked in code: text, muted text and links against solid surfaces, fills
-against the text on them, and then again against the rendered glass over every wallpaper
-in both modes (182 combinations, all above 5.4:1).
+Drag on the wheel to choose the hue and strength, or type a hex code. For the main colour,
+**Shade** sets how deep the palette is: lower makes the buttons, sidebar and header darker in
+light mode, and the sidebar, page and panels darker in dark mode. The highlight has no Shade
+because it always stays bright enough to read black text on. Arrow keys move around the wheel (Shift for bigger steps). The strip underneath previews
+the sidebar, buttons, links, highlight and page in the current mode, and every open tab
+updates as you drag. **Reset** goes back to the default navy and sky blue.
+
+The rest of the palette is generated from those two colours (`palette()` in
+`js/settings.js`), following the same pattern as the old hand-made themes: a deep nav and
+page-title colour, a tinted page, tinted text, and separate light and dark versions. Where a
+shade would be hard to read, its lightness is adjusted until it meets the contrast the old
+themes were checked against:
+
+| | Light mode | Dark mode |
+|---|---|---|
+| Buttons | white text 5.5:1 | 7.5:1 on the sidebar |
+| Links | 8:1 on white | 9.5:1 on panels |
+| Muted text | 7.2:1 on white | 7.2:1 on panels |
+| Highlight | black text 9:1 | 9:1 on the sidebar |
+
+A sweep of the whole wheel (every hue, strength and shade, with the highlight on Auto,
+black or white, in both modes) meets all of these.
+
+**Upgrading from 3.8:** the 13 fixed themes are gone. A saved theme (or one in an old backup
+file) is converted to its main and highlight colours, so the page looks the same until you
+change it.
 
 ### Settings page, backup and restore
 **Backup & settings** at the bottom of the popup (or *Extension options*) opens a settings page
@@ -144,17 +154,13 @@ in a tab with:
 - **Keyboard shortcut:** shows the current dark-mode shortcut and opens the browser page to
   change it.
 
-**Upgrading from 3.1:** the 12 colour themes were rebuilt and renamed (Blue is now
-Midnight, Crimson is Ember, and so on). Their internal ids are unchanged, so your saved
-choice carries over. Shounen and Noir from 3.0 still map to Verdant.
-
 ---
 
 ## File Structure
 
 ```
 ├── css/
-│   ├── theme.css         # Shared: bundled font, design tokens, all 13 themes
+│   ├── theme.css         # Shared: bundled font, design tokens and their defaults
 │   ├── anime.css         # Shared: manga layer and glass (panels, nav, wallpaper)
 │   ├── mystyle.css       # LMS-specific layout
 │   ├── cms-style.css     # CMS-specific layout
@@ -171,7 +177,7 @@ choice carries over. Shounen and Noir from 3.0 still map to Verdant.
 ├── icons/
 │   └── logo.png          # Extension icon
 ├── js/
-│   ├── settings.js         # Shared: setting keys, defaults, themes, built-in wallpapers
+│   ├── settings.js         # Shared: setting keys, defaults, palette generator, built-in wallpapers
 │   ├── theme-core.js       # Shared: applies settings, live sync, flash prevention, GPU check
 │   ├── wallpaper-upload.js # Shared by popup + settings page: format checks, resize, store
 │   ├── background.js       # Service worker: the Alt+Shift+D shortcut
@@ -189,9 +195,11 @@ choice carries over. Shounen and Noir from 3.0 still map to Verdant.
 
 - **Manifest V3** with two `content_scripts` entries — one matched to LMS, one to CMS.
   Both load `theme.css` and `theme-core.js` first, then their site-specific files.
-- All theming runs on CSS custom properties (`--lms-primary`, `--lms-bg`, …) defined once
-  in `theme.css`. There is no per-color JavaScript.
-- Theme, colour mode, anime style and the wallpaper choice live in `chrome.storage.sync`, so
+- All theming runs on CSS custom properties (`--lms-primary`, `--lms-bg`, …). `theme.css`
+  defines them with defaults; `theme-core.js` generates the palette from the picked colours
+  and sets it on `<html>` through the CSSOM, which the sites' content-security policy
+  doesn't block (an injected `<style>` element could be).
+- Colours, colour mode, anime style and the wallpaper choice live in `chrome.storage.sync`, so
   they follow you across devices; an uploaded image stays in `chrome.storage.local`. The keys
   and defaults are defined once in `js/settings.js`.
 - The wallpaper is a `position: fixed` layer (`body::before`), not
@@ -199,8 +207,8 @@ choice carries over. Shounen and Noir from 3.0 still map to Verdant.
   The URL is an extension path or a `data:` URL, so `theme-core.js` sets it as
   `--manga-wallpaper` rather than writing it into the stylesheet.
 - The popup, settings page and keyboard shortcut only write to storage. Every open LMS/CMS
-  tab listens with `chrome.storage.onChanged` and toggles classes (`lms-dark`, `lms-theme-*`)
-  on `<html>` instantly, so all tabs stay in step.
+  tab listens with `chrome.storage.onChanged` and updates `<html>` (the `lms-dark` class
+  and the palette properties) instantly, so all tabs stay in step.
 
 ### No flash on load
 
@@ -237,10 +245,9 @@ page load and was subject to the site's content-security policy.
 
 ### Accessibility
 
-- Every text/background pair is checked against WCAG AA (4.5:1) across all 24
-  theme × mode combinations — buttons, labels, alerts, tables, tabs, pagination and links.
-  `--lms-on-primary` follows the fill's lightness, and `--lms-link` is a separate token for
-  the few themes whose primary is a fill color too dark or too pale to read as text.
+- Generated palettes are held to fixed contrast targets (see [Colour](#colour)), so any
+  colour picked on the wheel keeps text above WCAG AA. `--lms-link` is a separate, deeper
+  token than the button colour so links stay readable as text.
 - Keyboard support: the themed semester/course dropdowns respond to arrows, Home/End,
   Enter, Escape and Tab, and expose `role="listbox"` with `aria-expanded`/`aria-selected`.
 - A visible focus ring is applied on `:focus-visible` only, so mouse users keep the

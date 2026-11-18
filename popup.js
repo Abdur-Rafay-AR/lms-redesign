@@ -10,9 +10,6 @@
   var Settings = window.LmsSettings;
   var Upload = window.LmsWallpaperUpload;
 
-  // The theme list (swatch colours included) lives in js/settings.js.
-  var THEMES = Settings.THEMES;
-
   var DEFAULT_NOTE = Upload.SUMMARY + '. Drag an image here, or paste one.';
 
   var body = document.body;
@@ -26,7 +23,15 @@
   var wallpaperNote = document.getElementById('wallpaperNote');
   var wallpaperSection = document.getElementById('wallpaperSection');
   var wallpaperHint = document.getElementById('wallpaperHint');
-  var themeGrid = document.getElementById('themeGrid');
+  var colorTargets = Array.prototype.slice.call(document.querySelectorAll('.color-target'));
+  var colorWheel = document.getElementById('colorWheel');
+  var wheelCanvas = document.getElementById('wheelCanvas');
+  var wheelHandle = document.getElementById('wheelHandle');
+  var shadeInput = document.getElementById('shadeInput');
+  var shadeField = document.getElementById('shadeField');
+  var hexInput = document.getElementById('hexInput');
+  var accentAuto = document.getElementById('accentAuto');
+  var previewCells = Array.prototype.slice.call(document.querySelectorAll('#palettePreview span'));
   var status = document.getElementById('status');
   var shortcutHint = document.getElementById('shortcutHint');
 
@@ -34,7 +39,6 @@
 
   var state = Settings.normalise({});
   var uploadImage = '';
-  var swatches = [];
   var wallTiles = [];
 
   /* On Linux the native file dialog steals focus from the popup, which
@@ -49,37 +53,171 @@
 
   /* ---------- building ---------------------------------------------------- */
 
-  function renderSwatches() {
-    var fragment = document.createDocumentFragment();
+  /* ---------- colour wheel ----------------------------------------------
+     An HSV disc: angle is the hue, distance from the centre the strength,
+     and the Shade slider the brightness. It edits one of the two saved
+     colours at a time (`target`). The page palette is generated from both,
+     and palette() shifts lightness where needed to keep text readable. */
 
-    THEMES.forEach(function (theme) {
-      var button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'theme-swatch';
-      button.dataset.theme = theme.id;
-      button.title = theme.name;
-      button.setAttribute('role', 'radio');
-      button.setAttribute('aria-checked', 'false');
+  var target = 'main';
+  var hsv = { h: 0, s: 0, v: 1 };
+  var dragging = false;
+  var wheelDrawnFor = -1;
 
-      var circle = document.createElement('span');
-      circle.className = 'swatch-circle is-manga';
-      circle.style.background = 'linear-gradient(135deg, ' + theme.from + ' 0%, ' + theme.to + ' 100%)';
+  function hexToHsv(hex) {
+    var rgb = Settings.hexToRgb(hex).map(function (c) { return c / 255; });
+    var max = Math.max.apply(null, rgb);
+    var min = Math.min.apply(null, rgb);
+    var d = max - min;
+    var h = 0;
+    if (d) {
+      if (max === rgb[0]) h = ((rgb[1] - rgb[2]) / d + 6) % 6;
+      else if (max === rgb[1]) h = (rgb[2] - rgb[0]) / d + 2;
+      else h = (rgb[0] - rgb[1]) / d + 4;
+    }
+    return { h: h * 60, s: max ? d / max : 0, v: max };
+  }
 
-      var label = document.createElement('span');
-      label.className = 'swatch-name';
-      label.textContent = theme.name;
+  function hsvToRgb(h, s, v) {
+    function f(n) {
+      var k = (n + h / 60) % 6;
+      return (v - v * s * Math.max(0, Math.min(k, 4 - k, 1))) * 255;
+    }
+    return [f(5), f(3), f(1)];
+  }
 
-      button.append(circle, label);
-      button.addEventListener('click', function () { save({ lmsTheme: theme.id }); });
-      button.addEventListener('keydown', function (event) {
-        gridKeys(event, swatches, 4, function (el) { save({ lmsTheme: el.dataset.theme }); });
-      });
+  function hsvToHex(c) {
+    return Settings.rgbToHex(hsvToRgb(c.h, c.s, c.v));
+  }
 
-      fragment.appendChild(button);
-    });
+  /* The colour a target stands for right now. An automatic highlight shows
+     as the colour it currently resolves to. */
+  function colorOf(name) {
+    if (name === 'main') return state.themeColor;
+    return state.accentColor || Settings.autoAccent(state.themeColor);
+  }
 
-    themeGrid.appendChild(fragment);
-    swatches = Array.prototype.slice.call(themeGrid.children);
+  // The disc only changes with brightness, so it is redrawn only then.
+  function drawWheel() {
+    var v = Math.round(hsv.v * 100);
+    if (v === wheelDrawnFor) return;
+    wheelDrawnFor = v;
+
+    var ratio = window.devicePixelRatio || 1;
+    var size = Math.round((colorWheel.clientWidth || 136) * ratio);
+    wheelCanvas.width = wheelCanvas.height = size;
+
+    var ctx = wheelCanvas.getContext('2d');
+    var image = ctx.createImageData(size, size);
+    var data = image.data;
+    var r = size / 2;
+
+    for (var y = 0; y < size; y++) {
+      for (var x = 0; x < size; x++) {
+        var dx = x + 0.5 - r;
+        var dy = y + 0.5 - r;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > r + 1) continue;
+        var hue = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+        var rgb = hsvToRgb(hue, Math.min(1, dist / r), hsv.v);
+        var i = (y * size + x) * 4;
+        data[i] = rgb[0];
+        data[i + 1] = rgb[1];
+        data[i + 2] = rgb[2];
+        data[i + 3] = Math.max(0, Math.min(1, r - dist + 0.5)) * 255;
+      }
+    }
+    ctx.putImageData(image, 0, 0);
+  }
+
+  function paintWheel() {
+    drawWheel();
+
+    var r = (colorWheel.clientWidth || 136) / 2;
+    var angle = hsv.h * Math.PI / 180;
+    wheelHandle.style.left = (r + Math.cos(angle) * hsv.s * r) + 'px';
+    wheelHandle.style.top = (r + Math.sin(angle) * hsv.s * r) + 'px';
+
+    var hex = hsvToHex(hsv);
+    wheelHandle.style.background = hex;
+    colorWheel.setAttribute('aria-valuetext', hex.toUpperCase());
+
+    shadeInput.value = Math.round(hsv.v * 100);
+    shadeInput.style.setProperty('--shade-track',
+      'linear-gradient(90deg, #000, ' + hsvToHex({ h: hsv.h, s: hsv.s, v: 1 }) + ')');
+
+    if (document.activeElement !== hexInput) {
+      hexInput.value = hex;
+      hexInput.classList.remove('is-invalid');
+    }
+  }
+
+  /* Follow the saved colour, unless it already matches what the wheel
+     shows. Greys and black have no hue (and black no strength) of their
+     own, so those keep the handle where it was instead of jumping to red. */
+  function syncWheel() {
+    var hex = colorOf(target);
+    if (dragging || hsvToHex(hsv) === hex) return;
+    var next = hexToHsv(hex);
+    if (next.s === 0 || next.v === 0) next.h = hsv.h;
+    if (next.v === 0) next.s = hsv.s;
+    hsv = next;
+  }
+
+  /* chrome.storage.sync allows 120 writes a minute, so a drag writes at
+     most every 700ms, plus once more when it ends. */
+  var pendingWrite = null;
+  var writeTimer = null;
+  var lastWrite = 0;
+
+  function writeColor(patch, now) {
+    pendingWrite = patch;
+    clearTimeout(writeTimer);
+    var wait = now ? 0 : Math.max(0, 700 - (Date.now() - lastWrite));
+    writeTimer = setTimeout(function () {
+      lastWrite = Date.now();
+      var p = pendingWrite;
+      pendingWrite = null;
+      if (p) chrome.storage.sync.set(p, checkActiveTab);
+    }, wait);
+  }
+
+  function flushColor() {
+    if (pendingWrite) writeColor(pendingWrite, true);
+  }
+
+  // The popup shows the colour at once; the write to storage may trail it.
+  function setColor(hex, now) {
+    if (target === 'main') state.themeColor = hex;
+    else state.accentColor = hex;
+    paint();
+    writeColor(target === 'main' ? { themeColor: hex } : { accentColor: hex }, now);
+  }
+
+  function pickAt(event) {
+    var box = colorWheel.getBoundingClientRect();
+    var r = box.width / 2;
+    var dx = event.clientX - box.left - r;
+    var dy = event.clientY - box.top - r;
+    hsv.h = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+    hsv.s = Math.min(1, Math.sqrt(dx * dx + dy * dy) / r);
+    liftShade();
+    setColor(hsvToHex(hsv), false);
+  }
+
+  /* On a black wheel nothing would visibly change, so lift it until a pick
+     shows. The highlight has no Shade slider, so it always picks at full
+     brightness. */
+  function liftShade() {
+    if (target === 'accent') hsv.v = 1;
+    else if (hsv.v < 0.15) hsv.v = 0.15;
+  }
+
+  function chooseTarget(name) {
+    flushColor();
+    target = name;
+    hsv = hexToHsv(colorOf(target));
+    paint();
   }
 
   /* Tiles: None, each built-in wallpaper, then the upload slot. Each tile
@@ -226,13 +364,6 @@
 
   /* ---------- painting ---------------------------------------------------- */
 
-  function themeById(id) {
-    for (var i = 0; i < THEMES.length; i++) {
-      if (THEMES[i].id === id) return THEMES[i];
-    }
-    return THEMES[0];
-  }
-
   function schemeOf(s) {
     return s.darkAuto ? 'auto' : s.darkMode ? 'dark' : 'light';
   }
@@ -252,18 +383,38 @@
       ? 'Following your system (' + (dark ? 'dark' : 'light') + ')'
       : 'Auto follows your system';
 
-    // Theme accent.
-    var theme = themeById(state.lmsTheme);
+    // The popup wears the light palette's main colour and highlight.
+    var light = Settings.palette(state.themeColor, state.accentColor, false);
     var root = document.documentElement.style;
-    root.setProperty('--popup-primary', theme.from);
-    root.setProperty('--popup-accent', theme.to);
-    root.setProperty('--popup-primary-rgb', theme.rgb);
-    root.setProperty('--popup-pop', theme.to);
+    root.setProperty('--popup-primary', light['--lms-primary']);
+    root.setProperty('--popup-accent', light['--manga-pop']);
+    root.setProperty('--popup-primary-rgb', light['--lms-primary-rgb']);
+    root.setProperty('--popup-pop', light['--manga-pop']);
 
-    swatches.forEach(function (swatch) {
-      var on = swatch.dataset.theme === state.lmsTheme;
-      swatch.setAttribute('aria-checked', on ? 'true' : 'false');
-      swatch.tabIndex = on ? 0 : -1;
+    // Colour picker.
+    syncWheel();
+    paintWheel();
+
+    colorTargets.forEach(function (button) {
+      var name = button.dataset.target;
+      var on = name === target;
+      button.setAttribute('aria-checked', on ? 'true' : 'false');
+      button.tabIndex = on ? 0 : -1;
+      button.querySelector('.color-dot').style.background = colorOf(name);
+      button.querySelector('.color-target-value').textContent =
+        name === 'accent' && !state.accentColor ? 'Auto' : colorOf(name);
+    });
+
+    accentAuto.hidden = target !== 'accent';
+    // The highlight is always lifted to stay readable under black text, so
+    // a darker shade would never show; Shade only drives the main colour.
+    shadeField.hidden = target !== 'main';
+    accentAuto.setAttribute('aria-pressed', state.accentColor ? 'false' : 'true');
+
+    // Strip: sidebar, buttons, links, highlight, page - in the mode shown.
+    var shown = dark ? Settings.palette(state.themeColor, state.accentColor, true) : light;
+    ['--lms-sidebar-bg', '--lms-primary', '--lms-link', '--manga-pop', '--lms-bg'].forEach(function (key, i) {
+      previewCells[i].style.background = shown[key];
     });
 
     // Anime style. The wallpaper choice stays editable while it is off.
@@ -352,13 +503,13 @@
 
   /* ---------- boot ------------------------------------------------------- */
 
-  renderSwatches();
   renderWallpaperTiles();
   showNote(DEFAULT_NOTE, false);
   showShortcut();
 
-  chrome.storage.sync.get(Settings.SYNC_KEYS, function (result) {
+  chrome.storage.sync.get(Settings.READ_KEYS, function (result) {
     state = Settings.normalise(result);
+    hsv = hexToHsv(colorOf(target));
 
     chrome.storage.local.get(['wallpaperImage'], function (local) {
       uploadImage = !chrome.runtime.lastError && local && typeof local.wallpaperImage === 'string'
@@ -388,6 +539,92 @@
   systemDark.addEventListener('change', function () {
     if (state.darkAuto) paint();
   });
+
+  /* ---------- colour events ---------- */
+
+  colorTargets.forEach(function (button) {
+    button.addEventListener('click', function () { chooseTarget(button.dataset.target); });
+    button.addEventListener('keydown', function (event) {
+      gridKeys(event, colorTargets, 2, function (el) { chooseTarget(el.dataset.target); });
+    });
+  });
+
+  colorWheel.addEventListener('pointerdown', function (event) {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    colorWheel.focus();
+    colorWheel.setPointerCapture(event.pointerId);
+    dragging = true;
+    pickAt(event);
+  });
+
+  colorWheel.addEventListener('pointermove', function (event) {
+    if (dragging) pickAt(event);
+  });
+
+  function endDrag() {
+    if (!dragging) return;
+    dragging = false;
+    flushColor();
+  }
+  colorWheel.addEventListener('pointerup', endDrag);
+  colorWheel.addEventListener('pointercancel', endDrag);
+
+  // Left/right turn the hue, up/down change the strength; Shift for bigger steps.
+  colorWheel.addEventListener('keydown', function (event) {
+    var step = event.shiftKey ? 15 : 5;
+    switch (event.key) {
+      case 'ArrowLeft':  hsv.h = (hsv.h - step + 360) % 360; break;
+      case 'ArrowRight': hsv.h = (hsv.h + step) % 360; break;
+      case 'ArrowUp':    hsv.s = Math.min(1, hsv.s + step / 100); break;
+      case 'ArrowDown':  hsv.s = Math.max(0, hsv.s - step / 100); break;
+      default: return;
+    }
+    event.preventDefault();
+    liftShade();
+    setColor(hsvToHex(hsv), false);
+  });
+
+  shadeInput.addEventListener('input', function () {
+    hsv.v = Number(shadeInput.value) / 100;
+    setColor(hsvToHex(hsv), false);
+  });
+  shadeInput.addEventListener('change', flushColor);
+
+  function readHex(commit) {
+    var hex = Settings.cleanHex(hexInput.value);
+    hexInput.classList.toggle('is-invalid', !hex && commit);
+    if (!hex) return;
+    var next = hexToHsv(hex);
+    if (next.s === 0) next.h = hsv.h;
+    hsv = next;
+    setColor(hex, commit);
+  }
+
+  // Six digits apply as they are typed; #abc shorthand on Enter or leaving.
+  hexInput.addEventListener('input', function () {
+    if (/^#?[0-9a-f]{6}$/i.test(hexInput.value.trim())) readHex(false);
+  });
+  hexInput.addEventListener('change', function () { readHex(true); });
+  hexInput.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') readHex(true);
+  });
+  hexInput.addEventListener('blur', paintWheel);
+
+  accentAuto.addEventListener('click', function () {
+    flushColor();
+    // Turning Auto off pins the colour it was showing, to fine-tune from there.
+    save({ accentColor: state.accentColor ? '' : Settings.autoAccent(state.themeColor) });
+  });
+
+  document.getElementById('colorReset').addEventListener('click', function () {
+    clearTimeout(writeTimer);
+    pendingWrite = null;
+    save({ themeColor: Settings.DEFAULT_COLOR, accentColor: Settings.DEFAULT_ACCENT });
+  });
+
+  // A drag or slider still waiting on its last write when the popup closes.
+  window.addEventListener('pagehide', flushColor);
 
   animeToggle.addEventListener('change', function () {
     save({ animeMode: animeToggle.checked });
@@ -445,7 +682,11 @@
   chrome.storage.onChanged.addListener(function (changes, area) {
     if (area === 'sync') {
       var patch = {};
+      // While the wheel or slider still has a write queued, the colour on
+      // screen is newer than anything storage is echoing back.
+      var busy = dragging || pendingWrite !== null;
       Settings.SYNC_KEYS.forEach(function (key) {
+        if (busy && (key === 'themeColor' || key === 'accentColor')) return;
         if (changes[key]) patch[key] = changes[key].newValue;
       });
       Object.keys(patch).forEach(function (key) { state[key] = patch[key]; });

@@ -739,10 +739,6 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: 4px !important;
 }
 
-html.lms-theme-mono small.label.label-warning[title*="Extended"] {
-    color: var(--lms-on-primary) !important;
-}
-
 .label-success, .bg-green {
     background: var(--lms-success) !important;
     color: var(--lms-on-success) !important;

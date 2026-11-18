@@ -203,108 +203,247 @@ body.dark .slider {
     box-shadow: 0 0 0 3px rgba(var(--popup-primary-rgb), .35);
 }
 
-/* ---------- Theme grid ---------- */
+/* ---------- Colour wheel ---------- */
 
-.theme-grid {
+/* Main / Highlight: which colour the wheel is editing. */
+.color-targets {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 8px;
+    margin-bottom: 12px;
 }
 
-.theme-swatch {
+.color-target {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 8px 2px;
-    border: 2px solid transparent;
-    border-radius: 10px;
-    background: transparent;
+    gap: 8px;
+    padding: 6px 8px;
+    border: 2px solid var(--popup-border);
+    border-radius: 8px;
+    background: var(--popup-surface);
     font: inherit;
     color: inherit;
+    text-align: left;
     cursor: pointer;
     appearance: none;
-    transition: background-color var(--popup-dur) var(--popup-ease),
-                border-color var(--popup-dur) var(--popup-ease),
-                transform 120ms var(--popup-ease);
+    transition: border-color var(--popup-dur) var(--popup-ease),
+                background-color var(--popup-dur) var(--popup-ease);
 }
 
-.theme-swatch:hover {
+.color-target:hover {
     background: var(--popup-hover);
 }
 
-.theme-swatch:active {
-    transform: scale(.95);
+.color-target:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--popup-primary-rgb), .3);
 }
 
-.theme-swatch:focus-visible {
+.color-target[aria-checked="true"] {
+    border-color: var(--popup-primary);
+}
+
+body.dark .color-target[aria-checked="true"] {
+    border-color: var(--popup-pop);
+}
+
+.color-dot {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #000;
+    border-radius: 3px;
+    box-shadow: 2px 2px 0 #000;
+}
+
+body.dark .color-dot {
+    border-color: #e6e6e6;
+}
+
+.color-target-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.color-target-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--popup-text-soft);
+}
+
+.color-target-value {
+    font-size: 10px;
+    font-family: ui-monospace, 'Cascadia Mono', 'DejaVu Sans Mono', monospace;
+    color: var(--popup-text-muted);
+    text-transform: uppercase;
+}
+
+.color-picker {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.color-wheel {
+    position: relative;
+    flex: 0 0 136px;
+    width: 136px;
+    height: 136px;
+    border-radius: 50%;
+    touch-action: none;
+    cursor: crosshair;
+}
+
+.color-wheel canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px #000, 3px 3px 0 2px #000;
+}
+
+body.dark .color-wheel canvas {
+    box-shadow: 0 0 0 2px #e6e6e6, 3px 3px 0 2px #000;
+}
+
+.color-wheel:focus-visible {
+    outline: none;
+}
+
+.color-wheel:focus-visible canvas {
+    box-shadow: 0 0 0 2px #000, 0 0 0 5px rgba(var(--popup-primary-rgb), .45);
+}
+
+.wheel-handle {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1.5px #000, 0 2px 4px rgba(0, 0, 0, .4);
+    pointer-events: none;
+}
+
+.color-side {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+
+.color-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--popup-text-muted);
+}
+
+.color-field[hidden] {
+    display: none;
+}
+
+.color-field input[type="range"] {
+    width: 100%;
+    height: 12px;
+    margin: 0;
+    border: 2px solid #000;
+    border-radius: 3px;
+    background: var(--shade-track, linear-gradient(90deg, #000, #fff));
+    appearance: none;
+    cursor: pointer;
+}
+
+body.dark .color-field input[type="range"] {
+    border-color: #e6e6e6;
+}
+
+.color-field input[type="range"]::-webkit-slider-thumb {
+    width: 10px;
+    height: 18px;
+    border: 2px solid #000;
+    border-radius: 2px;
+    background: #fff;
+    appearance: none;
+}
+
+.color-field input[type="range"]::-moz-range-thumb {
+    width: 10px;
+    height: 18px;
+    border: 2px solid #000;
+    border-radius: 2px;
+    background: #fff;
+}
+
+.color-field input[type="range"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(var(--popup-primary-rgb), .4);
+}
+
+.color-field input[type="text"] {
+    width: 100%;
+    padding: 5px 8px;
+    border: 1px solid var(--popup-border);
+    border-radius: 6px;
+    background: var(--popup-surface);
+    font: 12px ui-monospace, 'Cascadia Mono', 'DejaVu Sans Mono', monospace;
+    color: var(--popup-text);
+    text-transform: uppercase;
+}
+
+.color-field input[type="text"]:focus-visible {
     outline: none;
     border-color: var(--popup-primary);
     box-shadow: 0 0 0 3px rgba(var(--popup-primary-rgb), .3);
 }
 
-.theme-swatch[aria-checked="true"] {
+.color-field input[type="text"].is-invalid {
+    border-color: #dc2626;
+}
+
+.color-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.color-actions .mini-btn[aria-pressed="true"] {
     border-color: var(--popup-primary);
-    background: var(--popup-hover);
+    background: rgba(var(--popup-primary-rgb), .12);
 }
 
-.swatch-circle {
-    position: relative;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, .18);
-    transition: transform var(--popup-dur) var(--popup-ease-out),
-                box-shadow var(--popup-dur) var(--popup-ease);
+/* What the generated palette looks like in the current mode: nav, main,
+   link, highlight, page. */
+.palette-preview {
+    display: flex;
+    height: 14px;
+    margin-top: 14px;
+    overflow: hidden;
+    border: 2px solid #000;
+    border-radius: 3px;
 }
 
-.theme-swatch:hover .swatch-circle {
-    transform: scale(1.08);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .22);
+body.dark .palette-preview {
+    border-color: #e6e6e6;
 }
 
-/* Checkmark on the selected swatch. Drawn with borders so there is no icon
-   font or SVG asset to load for it. */
-.swatch-circle::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 46%;
-    width: 6px;
-    height: 11px;
-    border: solid #fff;
-    border-width: 0 2.5px 2.5px 0;
-    transform: translate(-50%, -50%) rotate(45deg) scale(0);
-    opacity: 0;
-    transition: transform var(--popup-dur) var(--popup-ease-out),
-                opacity var(--popup-dur) var(--popup-ease);
+.palette-preview span {
+    flex: 1;
+    transition: background-color var(--popup-dur) var(--popup-ease);
 }
 
-.theme-swatch[aria-checked="true"] .swatch-circle::after {
-    transform: translate(-50%, -50%) rotate(45deg) scale(1);
-    opacity: 1;
+.palette-preview span:first-child {
+    flex: 2;
 }
 
-.swatch-name {
-    font-size: 10px;
-    font-weight: 500;
-    line-height: 1.2;
-    text-align: center;
-    color: var(--popup-text-muted);
-    transition: color var(--popup-dur) var(--popup-ease);
-}
-
-.theme-swatch:hover .swatch-name {
-    color: var(--popup-text-soft);
-}
-
-.theme-swatch[aria-checked="true"] .swatch-name {
-    font-weight: 600;
-    color: var(--popup-primary);
-}
-
-body.dark .theme-swatch[aria-checked="true"] .swatch-name {
-    color: var(--popup-text);
+#colorNote {
+    margin: 8px 0 0;
 }
 
 /* ---------- Status line ---------- */
@@ -340,32 +479,6 @@ body.dark .theme-swatch[aria-checked="true"] .swatch-name {
     margin: 2px 0 10px;
     font-size: 11px;
     color: var(--popup-text-muted);
-}
-
-/* Manga swatches are squares with an ink outline and a screentone corner,
-   so they read as a different kind of theme at a glance. */
-.swatch-circle.is-manga {
-    border-radius: 3px;
-    border: 2px solid #000;
-    box-shadow: 3px 3px 0 #000;
-}
-
-.swatch-circle.is-manga::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle, rgba(255, 255, 255, .55) 1px, transparent 1.3px) 0 0 / 4px 4px;
-    -webkit-mask-image: linear-gradient(135deg, transparent 45%, #000 100%);
-            mask-image: linear-gradient(135deg, transparent 45%, #000 100%);
-}
-
-body.dark .swatch-circle.is-manga {
-    border-color: #e6e6e6;
-}
-
-.theme-swatch:hover .swatch-circle.is-manga {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0 #000;
 }
 
 /* With a manga theme active, the header becomes the same inked slab the

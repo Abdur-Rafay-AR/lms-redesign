@@ -967,10 +967,6 @@ html.lms-dark .breadcrumb {
     border-color: var(--lms-border) !important;
 }
 
-html.lms-theme-mono .box-header .col-lg-3 > h3.box-title {
-    color: var(--lms-on-primary) !important;
-}
-
 /* ============================================================
    POLISH LAYER
    Motion and depth refinements layered on top of the rules above.

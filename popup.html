@@ -77,11 +77,60 @@
 
   <div class="divider"></div>
 
-  <section class="section">
-    <h2 class="section-title" id="themeTitle">Theme</h2>
-    <!-- Populated from the THEMES table in popup.js so the swatch colours and
-         the theme list can never drift apart. -->
-    <div class="theme-grid" id="themeGrid" role="radiogroup" aria-labelledby="themeTitle"></div>
+  <section class="section" id="colorSection">
+    <h2 class="section-title" id="colorTitle">Colour</h2>
+
+    <!-- Which of the two colours the wheel edits. The full palette is
+         generated from both by LmsSettings.palette(). -->
+    <div class="color-targets" role="radiogroup" aria-labelledby="colorTitle">
+      <button type="button" class="color-target" role="radio" data-target="main">
+        <span class="color-dot" aria-hidden="true"></span>
+        <span class="color-target-text">
+          <span class="color-target-label">Main</span>
+          <span class="color-target-value"></span>
+        </span>
+      </button>
+      <button type="button" class="color-target" role="radio" data-target="accent">
+        <span class="color-dot" aria-hidden="true"></span>
+        <span class="color-target-text">
+          <span class="color-target-label">Highlight</span>
+          <span class="color-target-value"></span>
+        </span>
+      </button>
+    </div>
+
+    <div class="color-picker">
+      <div class="color-wheel" id="colorWheel" role="slider" tabindex="0"
+           aria-label="Colour wheel. Left and right change the hue, up and down the strength.">
+        <canvas id="wheelCanvas"></canvas>
+        <span class="wheel-handle" id="wheelHandle" aria-hidden="true"></span>
+      </div>
+
+      <div class="color-side">
+        <label class="color-field" id="shadeField">
+          Shade
+          <input type="range" id="shadeInput" min="15" max="100" step="1">
+        </label>
+        <label class="color-field">
+          Hex
+          <input type="text" id="hexInput" maxlength="7" spellcheck="false" autocomplete="off">
+        </label>
+        <div class="color-actions">
+          <button type="button" class="mini-btn" id="accentAuto" aria-pressed="false"
+                  title="Pick a highlight to go with the main colour">Auto</button>
+          <button type="button" class="link-btn" id="colorReset">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-preview" id="palettePreview" aria-hidden="true">
+      <span title="Sidebar and header"></span>
+      <span title="Buttons"></span>
+      <span title="Links"></span>
+      <span title="Highlight"></span>
+      <span title="Page"></span>
+    </div>
+    <p class="subsection-desc" id="colorNote">Shades are adjusted where needed so text stays readable in light and dark mode.</p>
   </section>
 
   <p class="status" id="status" role="status" hidden></p>
